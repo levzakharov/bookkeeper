@@ -1,0 +1,6 @@
+CREATE TABLE USER (
+  ID       BIGINT IDENTITY CONSTRAINT PK_USER PRIMARY KEY,
+  login    VARCHAR(32) NOT NULL,
+  password VARCHAR(32) NOT NULL,
+  gender   CHAR CHECK (gender IN ('M', 'F'))
+);
