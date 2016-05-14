@@ -1,11 +1,15 @@
 *.class
 *~
+
+# Intellij Idea
 *.iml
 .idea
+
+# Mac
 .DS_Store
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Maven
+target/
 
 # Package Files #
 *.jar
