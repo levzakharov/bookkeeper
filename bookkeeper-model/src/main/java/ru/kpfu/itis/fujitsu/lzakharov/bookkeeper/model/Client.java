@@ -3,19 +3,25 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Gender;
 
 /**
- * Represents the User.
+ * Represents the Client.
  */
-public class User extends AbstractModel {
+public class Client extends AbstractModel {
     private Long id;
     private String login;
     private String password;
     private Gender gender;
 
-    public User() {
+    public Client() {
     }
 
-    public User(Long id, String login, String password, Gender gender) {
+    public Client(Long id, String login, String password, Gender gender) {
         this.id = id;
+        this.login = login;
+        this.password = password;
+        this.gender = gender;
+    }
+
+    public Client(String login, String password, Gender gender) {
         this.login = login;
         this.password = password;
         this.gender = gender;
@@ -58,12 +64,12 @@ public class User extends AbstractModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Client client = (Client) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!login.equals(user.login)) return false;
-        if (!password.equals(user.password)) return false;
-        return gender == user.gender;
+        if (!id.equals(client.id)) return false;
+        if (!login.equals(client.login)) return false;
+        if (!password.equals(client.password)) return false;
+        return gender == client.gender;
 
     }
 
@@ -78,7 +84,7 @@ public class User extends AbstractModel {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Client{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
