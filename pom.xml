@@ -17,8 +17,17 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <modules>
+        <module>bookkeeper-db</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.db</groupId>
+                <artifactId>bookkeeper-db</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
 
             <!--Test-->
             <dependency>
