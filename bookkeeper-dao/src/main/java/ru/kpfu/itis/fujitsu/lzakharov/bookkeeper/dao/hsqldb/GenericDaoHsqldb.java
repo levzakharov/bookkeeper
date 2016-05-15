@@ -72,7 +72,7 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 1:
                     return list.get(0);
                 default:
-                    throw new DataAccessException("Expected only 1 model, got + " + list.size());
+                    throw new DataAccessException("Expected only 1 client, got + " + list.size());
             }
 
         } catch (SQLException e) {

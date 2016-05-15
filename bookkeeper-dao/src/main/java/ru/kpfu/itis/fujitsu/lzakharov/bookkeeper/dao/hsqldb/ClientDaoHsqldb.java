@@ -1,16 +1,18 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Gender;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> {
+public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientDao {
     @Override
     protected String getModelName() {
         return "Client";
@@ -90,5 +92,30 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> {
             throw new DataAccessException("Error preparing statement for add", e);
         }
 
+    }
+
+    @Override
+    public Client get(String login) {
+        String sql = "SELECT ID, LOGIN, PASSWORD, GENDER " +
+                     "FROM CLIENT WHERE LOGIN = ?";
+        try(Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, login);
+
+            ResultSet rs = pstmt.executeQuery();
+            List<Client> list = parseResultSet(rs);
+            rs.close();
+
+            switch (list.size()) {
+                case 0:
+                    return null;
+                case 1:
+                    return list.get(0);
+                default:
+                    throw new DataAccessException("Expected only 1 model, got + " + list.size());
+            }
+
+        } catch (SQLException e) {
+            throw new DataAccessException("Error retrieving " + getModelName() + " with login '" + login + "'", e);
+        }
     }
 }

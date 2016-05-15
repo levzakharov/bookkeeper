@@ -23,6 +23,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service</groupId>
+            <artifactId>bookkeeper-service</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>

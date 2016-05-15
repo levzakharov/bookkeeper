@@ -33,9 +33,6 @@
 
         <form id="registration" action="/registration" method="post">
             <div class="form-group has-feedback">
-                <input id="name" name="name" type="text" class="form-control" placeholder="Имя">
-            </div>
-            <div class="form-group has-feedback">
                 <input id="login" name="login" type="text" class="form-control" placeholder="Логин">
             </div>
             <div class="form-group has-feedback">
@@ -43,6 +40,13 @@
             </div>
             <div class="form-group has-feedback">
                 <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Повторите пароль">
+            </div>
+            <div class="form-group">
+                <label>Выберите пол</label>
+                <select name="gender" class="form-control">
+                    <option value="M">Мужской</option>
+                    <option value="F">Женский</option>
+                </select>
             </div>
             <div class="row">
                 <!-- /.col -->
@@ -86,37 +90,32 @@
             },
             confirmPassword: {
                 required: true,
-                equalTo: "#password"
+                equalTo: '#password'
             }
         },
         messages: {
-            name: {
-                required: "Имя не должно быть пустым",
-                minlength: "Имя должно содержать минимум 3 символа",
-                maxlength: "Имя должно содержать максимум 16 символов"
-            },
             login: {
-                required: "Логин не должен быть пустым",
-                minlength: "Логин должен содержать минимум 3 символа",
-                maxlength: "Логин должен содержать максимум 16 символов"
+                required: 'Логин не должен быть пустым',
+                minlength: 'Логин должен содержать минимум 3 символа',
+                maxlength: 'Логин должен содержать максимум 16 символов',
             },
             password: {
-                required: "Пароль не должен быть пустым",
-                minlength: "Пароль должен содержать минимум 6 символа",
-                maxlength: "Пароль должен содержать максимум 32 символов"
+                required: 'Пароль не должен быть пустым',
+                minlength: 'Пароль должен содержать минимум 6 символа',
+                maxlength: 'Пароль должен содержать максимум 32 символов'
             },
-            confirmPassword: "Введенные пароли не совпадают"
+            confirmPassword: 'Введенные пароли не совпадают'
         },
-        errorElement: "label",
+        errorElement: 'label',
         errorPlacement: function(error, element) {
             error.insertBefore(element);
         },
         highlight: function (element, errorClass, validClass) {
-            $(element).parent().addClass("has-error");
+            $(element).parent().addClass('has-error');
             return false;
         },
         unhighlight: function (element, errorClass, validClass) {
-            $(element).parent().removeClass("has-error");
+            $(element).parent().removeClass('has-error');
             return false;
         }
     });
