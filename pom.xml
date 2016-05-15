@@ -127,29 +127,14 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.codehaus.cargo</groupId>
-                    <artifactId>cargo-maven2-plugin</artifactId>
-                    <version>${cargo.version}</version>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.3.7.v20160115</version>
+                    <!-- http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
                     <configuration>
-                        <!-- https://codehaus-cargo.github.io/cargo/Maven2+Plugin+Reference+Guide.html -->
-                        <container>
-                            <containerId>tomcat8x</containerId>
-                            <artifactInstaller>
-                                <groupId>org.apache.tomcat</groupId>
-                                <artifactId>tomcat</artifactId>
-                                <version>8.0.32</version>
-                                <type>zip</type>
-                            </artifactInstaller>
-                        </container>
-                        <configuration>
-                            <properties>
-                                <!-- https://codehaus-cargo.github.io/cargo/Tomcat+8.x.html -->
-                                <cargo.hostname>127.0.0.1</cargo.hostname>
-                                <cargo.servlet.port>8081</cargo.servlet.port>
-                                <cargo.tomcat.uriencoding>UTF-8</cargo.tomcat.uriencoding>
-                                <!--<cargo.jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n</cargo.jvmargs>-->
-                            </properties>
-                        </configuration>
+                        <httpConnector>
+                            <port>8081</port>
+                        </httpConnector>
                     </configuration>
                 </plugin>
             </plugins>

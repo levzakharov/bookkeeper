@@ -40,17 +40,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <configuration>
-                    <deployables>
-                        <deployable>
-                            <properties>
-                                <context>${web.context}</context>
-                            </properties>
-                        </deployable>
-                    </deployables>
-                </configuration>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
