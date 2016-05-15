@@ -8,7 +8,7 @@
 
     <display-name>Bookkeeper</display-name>
 
-    <!--Freemarker-->
+    <!-- Freemarker -->
     <servlet>
         <servlet-name>freemarker</servlet-name>
         <servlet-class>freemarker.ext.servlet.FreemarkerServlet</servlet-class>
@@ -87,13 +87,13 @@
         </auth-constraint>
     </security-constraint>
 
-    <!--Static resources-->
+    <!-- Static resources -->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
 
-    <!--Servlets-->
+    <!-- Servlets -->
     <servlet>
         <servlet-name>index</servlet-name>
         <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.IndexController</servlet-class>
@@ -112,4 +112,21 @@
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
+    <!-- Filters -->
+    <filter>
+        <filter-name>log</filter-name>
+        <filter-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.filters.LogFilter</filter-class>
+        <init-param>
+            <param-name>language</param-name>
+            <param-value>ru</param-value>
+        </init-param>
+        <init-param>
+            <param-name>timezone</param-name>
+            <param-value>Europe/Moscow</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>log</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
