@@ -2,6 +2,7 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers;
 
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Gender;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientAlreadyExistsException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.ClientServiceImpl;
 
@@ -22,8 +23,14 @@ public class RegistrationController extends AbstractController {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Client client = parseParameters(req);
 
-        clientService.create(client);
-        resp.sendRedirect("/");
+        try {
+            clientService.create(client);
+            resp.sendRedirect("/home");
+        } catch (ClientAlreadyExistsException e) {
+            String error = "Пользователь с введенным логином уже существует";
+            req.setAttribute("error", error);
+            req.getRequestDispatcher("registration.ftl").forward(req, resp);
+        }
     }
 
     private Client parseParameters(HttpServletRequest req) {

@@ -31,6 +31,14 @@
     <div class="register-box-body">
         <p class="login-box-msg">Регистрация</p>
 
+        <#if error??>
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Ошибка!</h4>
+            ${error}
+            </div>
+        </#if>
+
         <form id="registration" action="/registration" method="post">
             <div class="form-group has-feedback">
                 <input id="login" name="login" type="text" class="form-control" placeholder="Логин">
