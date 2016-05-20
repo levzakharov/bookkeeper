@@ -6,11 +6,15 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientAlreadyExistsException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService;
 
+/**
+ *
+ * @see ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService
+ */
 public class ClientServiceImpl implements ClientService {
-    private static ClientDao clientDao;
+    private ClientDao clientDao;
 
-    static {
-        clientDao = new ClientDaoHsqldb();
+    public void setClientDao(ClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 
     @Override

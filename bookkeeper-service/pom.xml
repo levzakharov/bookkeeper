@@ -24,6 +24,15 @@
             <groupId>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao</groupId>
             <artifactId>bookkeeper-dao</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
