@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl;
 
+import org.mindrot.jbcrypt.BCrypt;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb.ClientDaoHsqldb;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
@@ -33,7 +34,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client find(String login, String password) {
         Client client = clientDao.get(login);
-        if (client != null && client.getPassword().equals(password)) {
+        if (client != null && BCrypt.checkpw(password, client.getPassword())) {
             return client;
         } else {
             return null;

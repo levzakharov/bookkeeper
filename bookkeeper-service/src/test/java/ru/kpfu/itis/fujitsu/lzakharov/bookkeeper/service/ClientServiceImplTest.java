@@ -1,6 +1,8 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mindrot.jbcrypt.BCrypt;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Gender;
@@ -13,10 +15,11 @@ import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
 
 public class ClientServiceImplTest {
+    public static final String PASSWORD_HASH = BCrypt.hashpw("password", BCrypt.gensalt());
 
     @Test
     public void testCreateNotExisting() throws ClientAlreadyExistsException {
-        Client client = new Client("login", "password", Gender.M);
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get(client.getLogin())).thenReturn(null);
         when(clientDao.add(client)).thenReturn(0L);
@@ -29,7 +32,7 @@ public class ClientServiceImplTest {
 
     @Test(expected = ClientAlreadyExistsException.class)
     public void testCreateExistingClient() throws ClientAlreadyExistsException {
-        Client client = new Client("login", "password", Gender.M);
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get(client.getLogin())).thenReturn(client);
 
@@ -51,7 +54,7 @@ public class ClientServiceImplTest {
 
     @Test
     public void testFindClientByRightLoginAndPassword() {
-        Client client = new Client("login", "password", Gender.M);
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get("login")).thenReturn(client);
 
@@ -63,7 +66,7 @@ public class ClientServiceImplTest {
 
     @Test
     public void testFindClientByRightLoginAndWrongPassword() {
-        Client client = new Client("login", "password", Gender.M);
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get("login")).thenReturn(client);
 
