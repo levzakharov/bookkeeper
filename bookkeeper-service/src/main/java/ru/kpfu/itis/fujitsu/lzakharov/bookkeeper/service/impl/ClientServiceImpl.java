@@ -13,6 +13,10 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService;
 public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao;
 
+    public ClientServiceImpl() {
+        clientDao = new ClientDaoHsqldb();
+    }
+
     public void setClientDao(ClientDao clientDao) {
         this.clientDao = clientDao;
     }

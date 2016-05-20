@@ -12,7 +12,9 @@ public class AuthenticationFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+
         if (!(servletRequest instanceof HttpServletRequest &&
                 servletResponse instanceof HttpServletResponse)) {
             throw new ServletException("Non-HTTP requests are not supported");
