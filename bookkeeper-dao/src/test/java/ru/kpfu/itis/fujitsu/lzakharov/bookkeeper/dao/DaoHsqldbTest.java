@@ -2,8 +2,6 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
 import org.apache.commons.io.FileUtils;
 import org.hsqldb.cmdline.SqlFile;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
@@ -13,9 +11,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-/**
- * Created by lzakharov on 30.12.15.
- */
 public class DaoHsqldbTest {
     public final long NOT_EXISTING_ID = 10001L;
 
