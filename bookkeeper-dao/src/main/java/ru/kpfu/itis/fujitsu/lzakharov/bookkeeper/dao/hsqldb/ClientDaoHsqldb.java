@@ -15,7 +15,7 @@ import java.util.List;
 public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientDao {
     @Override
     protected String getModelName() {
-        return "Client";
+        return "CLIENT";
     }
 
     @Override
@@ -27,18 +27,6 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
     @Override
     protected String getSelectAllQuery() {
         return "SELECT ID, LOGIN, PASSWORD, GENDER " +
-                "FROM CLIENT";
-    }
-
-    @Override
-    protected String getDeleteByIdQuery() {
-        return "DELETE FROM CLIENT " +
-                "WHERE ID = ?";
-    }
-
-    @Override
-    protected String getCountQuery() {
-        return "SELECT COUNT(*) " +
                 "FROM CLIENT";
     }
 

@@ -10,23 +10,19 @@ import java.util.List;
 
 public abstract class GenericDaoHsqldb<T extends AbstractModel> implements GenericDao<T> {
 
-    /**
-     * Gets connection.
-     *
-     * @return connection from pool
-     * @throws SQLException
-     *
-     * @see JdbcConnectionPool
-     */
-    protected Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return JdbcConnectionPool.getInstance().getConnection();
     }
 
     protected abstract String getModelName();
     protected abstract String getSelectByIdQuery();
     protected abstract String getSelectAllQuery();
-    protected abstract String getDeleteByIdQuery();
-    protected abstract String getCountQuery();
+    protected String getDeleteByIdQuery() {
+        return String.format("DELETE FROM %s WHERE ID = ?", getModelName());
+    }
+    protected String getCountQuery() {
+        return String.format("SELECT COUNT(*) FROM %s", getModelName());
+    }
     protected abstract String getUpdateQuery();
     protected abstract String getAddQuery();
 

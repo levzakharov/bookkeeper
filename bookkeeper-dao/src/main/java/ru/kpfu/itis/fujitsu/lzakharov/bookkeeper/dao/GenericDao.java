@@ -2,9 +2,18 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.AbstractModel;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface GenericDao<T extends AbstractModel> {
+    /**
+     * Gets connection.
+     *
+     * @return connection from pool
+     * @throws SQLException
+     */
+     Connection getConnection() throws SQLException;
 
     /**
      * Returns the specified object.
