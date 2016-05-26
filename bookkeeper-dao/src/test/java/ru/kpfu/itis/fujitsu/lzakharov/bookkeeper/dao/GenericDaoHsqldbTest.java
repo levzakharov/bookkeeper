@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.AbstractModel;
 
@@ -19,7 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public abstract class DaoHsqldbTest<T extends AbstractModel> {
+public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
     public final long NOT_EXISTING_ID = 10001L;
 
     public GenericDao<T> dao;
@@ -103,7 +101,9 @@ public abstract class DaoHsqldbTest<T extends AbstractModel> {
     public void testUpdateExisting() throws Exception {
         T object = objectToUpdate();
 
-        assertEquals(dao.update(object), object);
+        T updatedObject = dao.update(object);
+
+        assertEquals(updatedObject, dao.get(updatedObject.getId()));
     }
 
     @Test

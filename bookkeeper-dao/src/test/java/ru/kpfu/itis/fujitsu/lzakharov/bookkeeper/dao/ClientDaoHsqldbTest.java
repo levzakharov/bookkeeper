@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
-public class ClientDaoHsqldbTest extends DaoHsqldbTest<Client> {
+public class ClientDaoHsqldbTest extends GenericDaoHsqldbTest<Client> {
     public final String NOT_EXISTING_LOGIN = "########";
 
     @Override
