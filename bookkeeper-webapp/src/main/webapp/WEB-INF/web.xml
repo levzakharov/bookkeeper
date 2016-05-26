@@ -122,6 +122,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.HomeController</servlet-class>
     </servlet>
@@ -162,12 +171,24 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>anonymous</filter-name>
+        <filter-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.filters.AnonymousFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>anonymous</filter-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/registration</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>authentication</filter-name>
         <filter-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.filters.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>authentication</filter-name>
-        <url-pattern>/home/*</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/logout</url-pattern>
     </filter-mapping>
 
     <!-- Error pages -->
