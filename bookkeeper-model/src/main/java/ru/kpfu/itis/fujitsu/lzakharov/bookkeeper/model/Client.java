@@ -6,7 +6,6 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Gender;
  * Represents the Client.
  */
 public class Client extends AbstractModel {
-    private Long id;
     private String login;
     private String password;
     private Gender gender;
@@ -25,14 +24,6 @@ public class Client extends AbstractModel {
         this.login = login;
         this.password = password;
         this.gender = gender;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getLogin() {
