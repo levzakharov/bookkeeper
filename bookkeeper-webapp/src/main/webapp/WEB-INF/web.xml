@@ -139,6 +139,15 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>income</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.IncomeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>income</servlet-name>
+        <url-pattern>/income</url-pattern>
+    </servlet-mapping>
+
     <!-- Filters -->
     <filter>
         <filter-name>log</filter-name>
