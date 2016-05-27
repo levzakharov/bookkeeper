@@ -58,7 +58,7 @@ public class ClientDaoHsqldbTest extends GenericDaoHsqldbTest<Client> {
 
     @Test(expected = DataAccessException.class)
     public void testGetByLoginWithDataAccessException() throws Exception {
-        ((ClientDao) daoWithDataAccessException).get("client");
+        ((ClientDao) daoWithSQLException).get("client");
     }
 
 }

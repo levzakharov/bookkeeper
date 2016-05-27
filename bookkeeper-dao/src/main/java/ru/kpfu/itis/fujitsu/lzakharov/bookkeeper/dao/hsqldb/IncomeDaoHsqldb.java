@@ -4,6 +4,7 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.IncomeDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Income;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,6 +82,23 @@ public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeD
             pstmt.setDate(5, model.getCreationDate());
         } catch (SQLException e) {
             throw new DataAccessException("Error preparing statement for update", e);
+        }
+    }
+
+    @Override
+    public List<Income> getByClientId(long clientId) {
+        String sql = "SELECT ID, CLIENT_ID, CATEGORY_ID, PRICE, DESCRIPTION, CREATION_DATE " +
+                "FROM INCOME WHERE CLIENT_ID = ?";
+        try(Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+
+            ResultSet rs = pstmt.executeQuery();
+            List<Income> list = parseResultSet(rs);
+            rs.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new DataAccessException("Error retrieving " + getModelName() + "s with client's id '" + clientId + "'", e);
         }
     }
 }

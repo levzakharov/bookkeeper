@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -21,7 +22,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
     public final long NOT_EXISTING_ID = 10001L;
 
     public GenericDao<T> dao;
-    public GenericDao<T> daoWithDataAccessException;
+    public GenericDao<T> daoWithSQLException;
     public List<T> table;
 
     public abstract void initDao();
@@ -64,8 +65,8 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
         executeSqlResources(new String[]{"drop-schema.sql", "create-schema.sql", "test-data.sql"});
 
-        daoWithDataAccessException = PowerMockito.spy(this.dao);
-        PowerMockito.doThrow(new DataAccessException("")).when(daoWithDataAccessException, "getConnection");
+        daoWithSQLException = PowerMockito.spy(this.dao);
+        PowerMockito.doThrow(new SQLException("")).when(daoWithSQLException, "getConnection");
     }
 
     @Test
@@ -82,7 +83,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
     @Test(expected = DataAccessException.class)
     public void testGetWithDataAccessException() throws Exception {
-        daoWithDataAccessException.get(0L);
+        daoWithSQLException.get(0L);
     }
 
     @Test
@@ -94,7 +95,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
     @Test(expected = DataAccessException.class)
     public void testGetAllWithDataAccessException() throws Exception {
-        daoWithDataAccessException.getAll();
+        daoWithSQLException.getAll();
     }
 
     @Test
@@ -117,7 +118,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
     public void testUpdateWithDataAccessException() throws Exception {
         T object = objectToUpdate();
 
-        assertEquals(daoWithDataAccessException.update(object), object);
+        assertEquals(daoWithSQLException.update(object), object);
     }
 
     @Test
@@ -131,7 +132,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
     public void testAddWithDataAccessException() throws Exception {
         T object = newObject();
 
-        assertEquals(daoWithDataAccessException.add(object), 2);
+        assertEquals(daoWithSQLException.add(object), 2);
     }
 
     @Test
@@ -147,7 +148,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
     @Test(expected = DataAccessException.class)
     public void testRemoveWithDataAccessException() throws Exception {
-        daoWithDataAccessException.remove(0);
+        daoWithSQLException.remove(0);
     }
 
     @Test
@@ -157,6 +158,6 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
     @Test(expected = DataAccessException.class)
     public void testGetCountWithDataAccessException() throws Exception {
-        daoWithDataAccessException.getCount();
+        daoWithSQLException.getCount();
     }
 }
