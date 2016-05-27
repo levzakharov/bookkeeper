@@ -11,8 +11,8 @@ public interface ClientService {
      * Creates specified client.
      *
      * @param client the client to create
-     * @return created client.
-     * @throws ClientAlreadyExistsException if client with specified login already exists.
+     * @return created client's id
+     * @throws ClientAlreadyExistsException if client with specified login already exists
      */
     long create(Client client) throws ClientAlreadyExistsException;
 

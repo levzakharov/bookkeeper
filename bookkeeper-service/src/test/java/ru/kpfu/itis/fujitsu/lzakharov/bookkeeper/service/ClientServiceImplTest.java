@@ -1,6 +1,5 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
