@@ -21,8 +21,17 @@ public interface ClientService {
      *
      * @param login the login of client to find
      * @param password the password of client to find
-     * @return the client with specified login exists and password is correct;
+     * @return the client with specified login if exists and password is correct;
      *         {@code null} otherwise
      */
     Client find(String login, String password);
+
+    /**
+     * Returns specified by login client.
+     *
+     * @param login the login of client to find
+     * @return the client with specified login if exists;
+     *         {@code null} otherwise
+     */
+    Client find(String login);
 }

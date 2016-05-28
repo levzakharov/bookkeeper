@@ -75,4 +75,27 @@ public class ClientServiceImplTest {
         assertNull(clientService.find("login", "wrong_password"));
     }
 
+    @Test
+    public void testFindExistingClientByLogin() {
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get("login")).thenReturn(client);
+
+        ClientService clientService = new ClientServiceImpl();
+        ((ClientServiceImpl) clientService).setClientDao(clientDao);
+
+        assertEquals(client, clientService.find("login"));
+    }
+
+    @Test
+    public void testFindNotExistingClientByLogin() {
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get("login")).thenReturn(client);
+
+        ClientService clientService = new ClientServiceImpl();
+        ((ClientServiceImpl) clientService).setClientDao(clientDao);
+
+        assertNull(clientService.find("login"));
+    }
 }
