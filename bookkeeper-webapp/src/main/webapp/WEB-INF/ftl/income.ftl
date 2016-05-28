@@ -3,6 +3,8 @@
 <#macro styles>
 <!-- bootstrap datepicker -->
 <link rel="stylesheet" href="/static/plugins/datepicker/datepicker3.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="/static/plugins/datatables/dataTables.bootstrap.css">
 </#macro>
 
 <#macro content>
@@ -37,7 +39,9 @@
 
                             <div class="form-group">
                                 <select name="category" id="category" class="form-control">
-                                    <option>Еда</option>
+                                    <#list categories as category>
+                                        <option value="${category.id}">${category.name}</option>
+                                    </#list>
                                 </select>
                             </div>
 
@@ -65,6 +69,36 @@
                 <!-- /.box -->
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Список доходов</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="incomes" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Сумма</th>
+                                <th>Дата</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list incomes as income>
+                                <tr>
+                                    <td>${income.category.name}</td>
+                                    <td>${income.price}</td>
+                                    <td>${income.creationDate}</td>
+                                </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 </div>
@@ -75,6 +109,9 @@
 <script src="/static/plugins/jquery-validation/jquery.validate.min.js"></script>
 <!-- bootstrap datepicker -->
 <script src="/static/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- DataTables -->
+<script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
     $('#date').datepicker({
@@ -111,6 +148,12 @@
 
     });
 
+    $("#incomes").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json",
+            "order": [ 3, 'desc' ]
+        }
+    });
 </script>
 
 </#macro>

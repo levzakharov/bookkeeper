@@ -197,6 +197,7 @@
     <filter-mapping>
         <filter-name>authentication</filter-name>
         <url-pattern>/home</url-pattern>
+        <url-pattern>/income</url-pattern>
         <url-pattern>/logout</url-pattern>
     </filter-mapping>
 
