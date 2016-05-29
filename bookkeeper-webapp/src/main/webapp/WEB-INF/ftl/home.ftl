@@ -34,7 +34,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Доход за месяц</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-number">${amount}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -61,7 +61,7 @@
                 <!-- INCOME CHART -->
                 <div class="box box-success">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Доходы</h3>
+                        <h3 class="box-title">Доходы за текущий месяц</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -130,28 +130,17 @@
         var incomeChartCtx = $("#incomeChart").get(0).getContext("2d");
 
         var data = [
-            {
-                value: 270,
-                color: "cornflowerblue",
-                highlight: "lightskyblue",
-                label: "Corn Flower Blue"
-            },
-            {
-                value: 50,
-                color: "lightgreen",
-                highlight: "yellowgreen",
-                label: "Lightgreen"
-            },
-            {
-                value: 40,
-                color: "orange",
-                highlight: "darkorange",
-                label: "Orange"
-            }
+            <#list data?keys as key>
+                {
+                    label: '${key}',
+                    value: ${data[key]?c},
+                    color: 'green'
+                },
+            </#list>
         ];
 
         var options = {
-            segmentShowStroke: false,
+            segmentShowStroke: true,
             animateRotate: true,
             animateScale: false,
             percentageInnerCutout: 50,

@@ -114,6 +114,8 @@
 <script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
+    var now = new Date();
+    $('#date').val(now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2));
     $('#date').datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true
@@ -125,12 +127,18 @@
                 required: true,
                 min: 1,
                 digit: true
+            },
+            date: {
+                required: true
             }
         },
         messages: {
             price: {
                 required: 'Поле не должно быть пустым',
                 min: 'Сумма должна быть не менее 1 рубля'
+            },
+            date: {
+                required: 'Пожалуйста, укажите дату'
             }
         },
         errorElement: 'label',
@@ -150,9 +158,9 @@
 
     $("#incomes").DataTable({
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json",
-            "order": [ 3, 'desc' ]
-        }
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json"
+        },
+        "order": [[ 2, 'desc' ]]
     });
 </script>
 

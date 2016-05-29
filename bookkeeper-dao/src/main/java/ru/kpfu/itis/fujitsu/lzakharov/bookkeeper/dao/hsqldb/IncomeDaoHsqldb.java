@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
+import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.IncomeDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Income;
@@ -12,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeDao {
+    final static Logger log = Logger.getLogger(IncomeDaoHsqldb.class.getName());
+
     @Override
     protected String getModelName() {
         return "INCOME";
@@ -52,7 +55,9 @@ public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeD
                         rs.getString("DESCRIPTION"), rs.getDate("CREATION_DATE")));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error parsing ResultSet", e);
+            String msg = "Error parsing ResultSet";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
 
         return list;
@@ -68,7 +73,9 @@ public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeD
             pstmt.setDate(5, model.getCreationDate());
             pstmt.setLong(6, model.getId());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for update", e);
+            String msg = "Error preparing statement for update";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -81,7 +88,9 @@ public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeD
             pstmt.setString(4, model.getDescription());
             pstmt.setDate(5, model.getCreationDate());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for update", e);
+            String msg = "Error preparing statement for add";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -98,7 +107,32 @@ public class IncomeDaoHsqldb extends GenericDaoHsqldb<Income> implements IncomeD
 
             return list;
         } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving " + getModelName() + "s with client's id '" + clientId + "'", e);
+            String msg = "Error retrieving " + getModelName() + "s with client's id '" + clientId + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
+        }
+    }
+
+    @Override
+    public Long getClientMonthAmount(long clientId, int month) {
+        String sql = "SELECT SUM(PRICE) FROM INCOME " +
+                "WHERE CLIENT_ID = ? AND ? = MONTH(CREATION_DATE)";
+
+        try(Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+            pstmt.setInt(2, month);
+
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            Long amount = rs.getLong(1);
+            rs.close();
+
+            return amount;
+        } catch (SQLException e) {
+            String msg = "Error retrieving amount of income for '" + month + "' month " +
+                    "for client with id '" + clientId + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 }

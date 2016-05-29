@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegistrationController extends AbstractController {
-    private static ClientService clientService = new ClientServiceImpl();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("registration.ftl").forward(req, resp);
@@ -22,6 +20,8 @@ public class RegistrationController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ClientService clientService = new ClientServiceImpl();
+
         Client client = parseParameters(req);
 
         try {

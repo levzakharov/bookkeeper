@@ -89,9 +89,8 @@ public class ClientServiceImplTest {
 
     @Test
     public void testFindNotExistingClientByLogin() {
-        Client client = new Client("login", PASSWORD_HASH, Gender.M);
         ClientDao clientDao = mock(ClientDao.class);
-        when(clientDao.get("login")).thenReturn(client);
+        when(clientDao.get("login")).thenReturn(null);
 
         ClientService clientService = new ClientServiceImpl();
         ((ClientServiceImpl) clientService).setClientDao(clientDao);

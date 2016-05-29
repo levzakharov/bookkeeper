@@ -1,5 +1,7 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.GenericDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.JdbcConnectionPool;
@@ -9,6 +11,7 @@ import java.sql.*;
 import java.util.List;
 
 public abstract class GenericDaoHsqldb<T extends AbstractModel> implements GenericDao<T> {
+    final static Logger log = Logger.getLogger(GenericDao.class.getName());
 
     public Connection getConnection() throws SQLException {
         return JdbcConnectionPool.getInstance().getConnection();
@@ -68,11 +71,15 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 1:
                     return list.get(0);
                 default:
-                    throw new DataAccessException("Expected only 1 client, got + " + list.size());
+                    String msg = "Expected only 1 client, got + " + list.size();
+                    log.error(msg);
+                    throw new DataAccessException(msg);
             }
 
         } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving " + getModelName() + " with id " + id, e);
+            String msg = "Error retrieving " + getModelName() + " with id " + id;
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -88,7 +95,9 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
 
             return list;
         } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving " + getModelName() + "s", e);
+            String msg = "Error retrieving " + getModelName() + "s";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -107,10 +116,14 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 1:
                     return model;
                 default:
-                    throw new DataAccessException("Expected only 1 row updated, got " + rowsAffected);
+                    String msg = "Expected only 1 row updated, got " + rowsAffected;
+                    log.error(msg);
+                    throw new DataAccessException(msg);
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error updating " + model, e);
+            String msg = "Error updating " + model;
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -124,18 +137,24 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected != 1) {
-                throw new DataAccessException("Expected only 1 row updated, got " + rowsAffected);
+                String msg = "Expected only 1 row updated, got " + rowsAffected;
+                log.error(msg);
+                throw new DataAccessException(msg);
             } else {
                 ResultSet generatedKeys = pstmt.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
                     return generatedKeys.getLong(1);
                 } else {
-                    throw new DataAccessException("Adding model failed, no ID obtained");
+                    String msg = "Adding model failed, no ID obtained";
+                    log.error(msg);
+                    throw new DataAccessException(msg);
                 }
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error updating " + model, e);
+            String msg = "Error updating " + model;
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -152,10 +171,14 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 1:
                     return true;
                 default:
-                    throw new DataAccessException("Expected only 1 row updated, got " + rowsAffected);
+                    String msg = "Expected only 1 row updated, got " + rowsAffected;
+                    log.error(msg);
+                    throw new DataAccessException(msg);
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error removing " + getModelName() + " with id " + id, e);
+            String msg = "Error removing " + getModelName() + " with id " + id;
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -171,7 +194,9 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
 
             rs.close();
         } catch (SQLException e) {
-            throw new DataAccessException("Error getting number of " + getModelName() + "s");
+            String msg = "Error getting number of " + getModelName() + "s";
+            log.error(msg);
+            throw new DataAccessException(msg);
         }
         return 0;
     }

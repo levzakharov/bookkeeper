@@ -53,4 +53,13 @@ public class IncomeServiceImpl implements IncomeService {
 
         return incomes;
     }
+
+    @Override
+    public Long getClientMonthAmount(String login, int month) {
+        Client client = clientDao.get(login);
+
+        Long amount = incomeDao.getClientMonthAmount(client.getId(), month);
+
+        return amount;
+    }
 }

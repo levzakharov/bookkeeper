@@ -1,6 +1,5 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers;
 
-import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Income;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.CategoryService;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService;
@@ -15,17 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
 public class IncomeController extends HttpServlet {
-    private ClientService clientService = new ClientServiceImpl();
-    private CategoryService categoryService = new CategoryServiceImpl();
-    private IncomeService incomeService = new IncomeServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("categories", categoryService.getAll());
+        CategoryService categoryService = new CategoryServiceImpl();
+        IncomeService incomeService = new IncomeServiceImpl();
 
+        req.setAttribute("categories", categoryService.getAll());
 
         String login = req.getSession().getAttribute("login").toString();
         req.setAttribute("incomes", incomeService.find(login));
@@ -35,6 +32,9 @@ public class IncomeController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ClientService clientService = new ClientServiceImpl();
+        IncomeService incomeService = new IncomeServiceImpl();
+
         String login = req.getSession().getAttribute("login").toString();
 
         Income income = parseParameters(req);

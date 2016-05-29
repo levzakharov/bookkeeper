@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginController extends AbstractController {
-    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,6 +19,8 @@ public class LoginController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ClientService clientService = new ClientServiceImpl();
+
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String remember = req.getParameter("remember");

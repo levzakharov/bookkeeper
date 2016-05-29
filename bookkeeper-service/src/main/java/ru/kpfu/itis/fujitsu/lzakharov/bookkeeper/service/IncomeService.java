@@ -24,4 +24,14 @@ public interface IncomeService {
      * @return list contains all incomes of specified by login client, may be empty
      */
     List<Income> find(String login);
+
+
+    /**
+     * Returns amount of income for a specified month of specified by login client.
+     *
+     * @param login the client's login
+     * @param month    number of month
+     * @return amount of incomes for a specified month of specified by id client.
+     */
+    Long getClientMonthAmount(String login, int month);
 }

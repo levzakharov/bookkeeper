@@ -2,13 +2,12 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 public class JdbcConnectionPool {
     final static Logger log = Logger.getLogger(JdbcConnectionPool.class.getName());
@@ -25,7 +24,7 @@ public class JdbcConnectionPool {
         try {
             jdbcProps.load(getClass().getResourceAsStream(JDBC_PROPERTIES_FILE));
         } catch (IOException e) {
-            log.warning("Unable to open JDBC properties file '" + JDBC_PROPERTIES_FILE + "'");
+            log.warn("Unable to open JDBC properties file '" + JDBC_PROPERTIES_FILE + "'");
         }
         config.setJdbcUrl(jdbcProps.getProperty("jdbc.url"));
         config.setUsername(jdbcProps.getProperty("jdbc.username"));

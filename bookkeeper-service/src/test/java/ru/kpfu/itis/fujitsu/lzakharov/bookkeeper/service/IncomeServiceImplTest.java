@@ -57,4 +57,21 @@ public class IncomeServiceImplTest {
         assertEquals(incomes, incomeService.find("login"));
 
     }
+
+    @Test
+    public void testGetClientMonthAmount() {
+        Client client = new Client(0L, "login", "password", Gender.M);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get("login")).thenReturn(client);
+
+        IncomeDao incomeDao = mock(IncomeDao.class);
+        when(incomeDao.getClientMonthAmount(client.getId(), 12)).thenReturn(250L);
+
+        IncomeService incomeService = new IncomeServiceImpl();
+        ((IncomeServiceImpl) incomeService).setIncomeDao(incomeDao);
+        ((IncomeServiceImpl) incomeService).setClientDao(clientDao);
+
+        assertEquals(250L, incomeDao.getClientMonthAmount(client.getId(), 12).longValue());
+    }
 }

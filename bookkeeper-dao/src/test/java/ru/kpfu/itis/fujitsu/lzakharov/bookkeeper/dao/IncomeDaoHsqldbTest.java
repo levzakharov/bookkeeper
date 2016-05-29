@@ -39,7 +39,7 @@ public class IncomeDaoHsqldbTest extends GenericDaoHsqldbTest<Income> {
     }
 
     @Test
-    public void getIncomesByClientId() {
+    public void testGetIncomesByClientId() {
         List<Income> incomes = ((IncomeDaoHsqldb) this.dao).getByClientId(0L);
 
         assertEquals(table.get(0), incomes.get(0));
@@ -47,7 +47,7 @@ public class IncomeDaoHsqldbTest extends GenericDaoHsqldbTest<Income> {
     }
 
     @Test
-    public void getIncomesByNotExistingClientId() {
+    public void testGetIncomesByNotExistingClientId() {
         List<Income> incomes = ((IncomeDaoHsqldb) this.dao).getByClientId(NOT_EXISTING_ID);
 
         assertTrue(incomes.isEmpty());
@@ -56,5 +56,12 @@ public class IncomeDaoHsqldbTest extends GenericDaoHsqldbTest<Income> {
     @Test(expected = DataAccessException.class)
     public void testGetByLoginWithDataAccessException() throws Exception {
         ((IncomeDao) daoWithSQLException).getByClientId(0L);
+    }
+
+    @Test
+    public void testGetMonthAmountByClientId() {
+        Long amount = ((IncomeDaoHsqldb) this.dao).getClientMonthAmount(0L, 12);
+
+        assertEquals(100L, amount.longValue());
     }
 }

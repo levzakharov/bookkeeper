@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
+import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.CategoryDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
@@ -11,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CategoryDaoHsqldb extends GenericDaoHsqldb<Category> implements CategoryDao {
+    final static Logger log = Logger.getLogger(CategoryDaoHsqldb.class.getName());
+
     @Override
     protected String getModelName() {
         return "CATEGORY";
@@ -50,7 +53,9 @@ public class CategoryDaoHsqldb extends GenericDaoHsqldb<Category> implements Cat
                 list.add(new Category(rs.getLong("ID"), rs.getString("NAME")));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error parsing ResultSet", e);
+            String msg = "Error parsing ResultSet";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
 
         return list;
@@ -62,7 +67,9 @@ public class CategoryDaoHsqldb extends GenericDaoHsqldb<Category> implements Cat
             pstmt.setString(1, model.getName());
             pstmt.setLong(2, model.getId());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for update", e);
+            String msg = "Error preparing statement for update";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -71,7 +78,9 @@ public class CategoryDaoHsqldb extends GenericDaoHsqldb<Category> implements Cat
         try {
             pstmt.setString(1, model.getName());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for add", e);
+            String msg = "Error preparing statement for add";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 }

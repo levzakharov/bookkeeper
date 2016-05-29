@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
+import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
@@ -13,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientDao {
+    final static Logger log = Logger.getLogger(ClientDaoHsqldb.class.getName());
+
     @Override
     protected String getModelName() {
         return "CLIENT";
@@ -52,7 +55,9 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
                 list.add(new Client(rs.getLong("ID"), rs.getString("LOGIN"), rs.getString("PASSWORD"), Gender.valueOf(rs.getString("GENDER"))));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error parsing ResultSet", e);
+            String msg = "Error parsing ResultSet";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
 
         return list;
@@ -66,7 +71,9 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
             pstmt.setString(3, model.getGender().toString());
             pstmt.setLong(4, model.getId());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for update", e);
+            String msg = "Error preparing statement for update";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 
@@ -77,7 +84,9 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
             pstmt.setString(2, model.getPassword());
             pstmt.setString(3, model.getGender().toString());
         } catch (SQLException e) {
-            throw new DataAccessException("Error preparing statement for add", e);
+            String msg = "Error preparing statement for add";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
 
     }
@@ -99,11 +108,15 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
                 case 1:
                     return list.get(0);
                 default:
-                    throw new DataAccessException("Expected only 1 model, got + " + list.size());
+                    String msg = "Expected only 1 model, got + " + list.size();
+                    log.error(msg);
+                    throw new DataAccessException(msg);
             }
 
         } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving " + getModelName() + " with login '" + login + "'", e);
+            String msg = "Error retrieving " + getModelName() + " with login '" + login + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
         }
     }
 }
