@@ -97,4 +97,16 @@ public class ClientServiceImplTest {
 
         assertNull(clientService.find("login"));
     }
+
+    @Test
+    public void testUpdatePassword() {
+        Client client = new Client("login", PASSWORD_HASH, Gender.M);
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.update(client)).thenReturn(client);
+
+        ClientService clientService = new ClientServiceImpl();
+        ((ClientServiceImpl) clientService).setClientDao(clientDao);
+
+        assertTrue(BCrypt.checkpw("newpassword", clientService.updatePassword(client, "newpassword").getPassword()));
+    }
 }

@@ -140,6 +140,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>settings</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.SettingsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>settings</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>password</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.PasswordController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>password</servlet-name>
+        <url-pattern>/password</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>income</servlet-name>
         <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.IncomeController</servlet-class>
     </servlet>
@@ -206,6 +224,8 @@
     <filter-mapping>
         <filter-name>authentication</filter-name>
         <url-pattern>/home</url-pattern>
+        <url-pattern>/settings</url-pattern>
+        <url-pattern>/password</url-pattern>
         <url-pattern>/income</url-pattern>
         <url-pattern>/expenditure</url-pattern>
         <url-pattern>/logout</url-pattern>

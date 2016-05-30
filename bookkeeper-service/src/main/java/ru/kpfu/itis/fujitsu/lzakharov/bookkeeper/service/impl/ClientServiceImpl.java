@@ -45,4 +45,11 @@ public class ClientServiceImpl implements ClientService {
     public Client find(String login) {
         return clientDao.get(login);
     }
+
+    @Override
+    public Client updatePassword(Client client, String newPassword) {
+        client.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+
+        return clientDao.update(client);
+    }
 }

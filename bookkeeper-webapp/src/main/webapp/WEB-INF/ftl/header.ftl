@@ -16,7 +16,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/profile">Профиль</a>
+                    <a href="/settings">Настройки</a>
                 </li>
 
                 <li>

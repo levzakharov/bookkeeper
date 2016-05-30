@@ -34,4 +34,12 @@ public interface ClientService {
      *         {@code null} otherwise
      */
     Client find(String login);
+
+    /**
+     * Updates password of specified client.
+     *
+     * @param client the client to update
+     * @param newPassword new password
+     */
+    Client updatePassword(Client client, String newPassword);
 }
