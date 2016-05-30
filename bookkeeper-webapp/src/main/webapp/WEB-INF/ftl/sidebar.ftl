@@ -15,7 +15,7 @@
             <li class="header">Меню</li>
             <li><a href="/home"><span> Главная</span></a></li>
 
-            <li class="treeview active">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pencil"></i>
                     <span>Добавить запись</span>
