@@ -1,8 +1,10 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service;
 
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Record Service interface.
@@ -66,4 +68,22 @@ public interface RecordService {
      * @return amount of expenditure for a specified month of specified by login client
      */
     Long getMonthlyExpenditure(String login, int month);
+
+    /**
+     * Removes the specified by id record.
+     *
+     * @param id the identifier (primary key) of the record to remove
+     * @return {@code true} if object removed;
+     *         {@code false} otherwise
+     */
+    boolean remove(Long id);
+
+    /**
+     * Returns map for specified by login client containing monthly income of this person for each category.
+     *
+     * @param login the client's login
+     * @param month number of month
+     * @return map, where keys - names of categories and values - monthly income for appropriate category
+     */
+    Map<String, Long> getMonthlyIncomeData(String login, int month);
 }

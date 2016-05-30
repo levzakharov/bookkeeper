@@ -110,4 +110,11 @@ public class RecordDaoHsqldbTest extends GenericDaoHsqldbTest<Record> {
         assertEquals(300L, recordDao.getCurrentBalance(0).longValue());
     }
 
+    @Test
+    public void testGetMonthlyIncomeForCategory() {
+        RecordDao recordDao = (RecordDaoHsqldb) dao;
+
+        assertEquals(100L, recordDao.getMonthlyIncomeForCategory(0L, 0L, 1).longValue());
+    }
+
 }

@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public interface RecordDao extends GenericDao<Record> {
      */
     Long getTotalIncome(long clientId);
 
-    /**
+    /*
      * Returns total expenditure of specified by id client.
      *
      * @param clientId the client's id
@@ -87,5 +88,14 @@ public interface RecordDao extends GenericDao<Record> {
      * @return current balance for specified by id client
      */
     Long getCurrentBalance(long clientId);
+
+    /*
+     * Returns monthly income of specified by id client for specified category.
+     *
+     * @param clientId the client's id
+     * @param categoryId the id of category
+     * @return monthly income of specified by id client for specified category.
+     */
+    Long getMonthlyIncomeForCategory(Long clientId, Long categoryId, int month);
 }
 

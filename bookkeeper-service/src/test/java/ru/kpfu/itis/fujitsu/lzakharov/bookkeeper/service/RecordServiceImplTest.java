@@ -140,4 +140,6 @@ public class RecordServiceImplTest {
 
         assertEquals(0L, recordService.getMonthlyExpenditure(anyString(), 1).longValue());
     }
+
+    // TODO: add test for remove() and getMonthlyIncomeData()
 }

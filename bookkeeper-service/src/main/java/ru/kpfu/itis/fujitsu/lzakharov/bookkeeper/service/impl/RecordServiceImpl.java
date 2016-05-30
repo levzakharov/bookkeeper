@@ -11,7 +11,9 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.RecordService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecordServiceImpl implements RecordService {
     private RecordDao recordDao;
@@ -47,7 +49,7 @@ public class RecordServiceImpl implements RecordService {
 
         List<Record> records = recordDao.getAll(client.getId());
 
-        for (Record record: records) {
+        for (Record record : records) {
             record.setClient(client);
             record.setCategory(categoryDao.get(record.getCategoryId()));
         }
@@ -71,7 +73,7 @@ public class RecordServiceImpl implements RecordService {
 
         List<Record> records = recordDao.getIncomeList(client.getId());
 
-        for (Record record: records) {
+        for (Record record : records) {
             record.setClient(client);
             record.setCategory(categoryDao.get(record.getCategoryId()));
         }
@@ -85,7 +87,7 @@ public class RecordServiceImpl implements RecordService {
 
         List<Record> records = recordDao.getExpenditureList(client.getId());
 
-        for (Record record: records) {
+        for (Record record : records) {
             record.setClient(client);
             record.setCategory(categoryDao.get(record.getCategoryId()));
         }
@@ -96,5 +98,25 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Long getMonthlyExpenditure(String login, int month) {
         return recordDao.getMonthlyExpenditure(clientDao.get(login).getId(), month);
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        return recordDao.remove(id);
+    }
+
+    @Override
+    public Map<String, Long> getMonthlyIncomeData(String login, int month) {
+        Client client = clientDao.get(login);
+        HashMap<String, Long> data = new HashMap<>();
+
+        CategoryDao categoryDao = new CategoryDaoHsqldb();
+        List<Category> categories = categoryDao.getAll();
+
+        for (Category category : categories) {
+            data.put(category.getName(), recordDao.getMonthlyIncomeForCategory(client.getId(), category.getId(), month));
+        }
+
+        return data;
     }
 }

@@ -3,6 +3,7 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.RecordDao;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 
@@ -311,6 +312,34 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
         long amount = getTotalIncome(clientId) - getTotalExpenditure(clientId);
         log.trace("Current balance of client with id=" + clientId + " equals " + amount);
         return amount;
+    }
+
+    @Override
+    public Long getMonthlyIncomeForCategory(Long clientId, Long categoryId, int month) {
+        String sql = "SELECT SUM(AMOUNT) FROM RECORD " +
+                "WHERE CLIENT_ID = ? AND TYPE = ? AND CATEGORY_ID = ? AND MONTH(CREATION_DATE) = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+            pstmt.setString(2, Type.INCOME.toString());
+            pstmt.setLong(3, categoryId);
+            pstmt.setInt(4, month);
+
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            Long amount = rs.getLong(1);
+            rs.close();
+
+            log.trace(String.format("Monthly income of client with id=%d in '%d's month for category with id=%d equals %d",
+                    clientId, month, categoryId, amount));
+            return amount;
+        } catch (SQLException e) {
+            String msg = String.format("Error retrieving monthly income for client with id '%d' in '%d's month " +
+                    "for category with id=%d",
+                    clientId, month, categoryId);
+            log.error(msg);
+            throw new DataAccessException(msg, e);
+        }
     }
 
 }
