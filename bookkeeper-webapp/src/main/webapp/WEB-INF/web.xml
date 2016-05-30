@@ -140,6 +140,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>recordDelete</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.RecordDeleteController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>recordDelete</servlet-name>
+        <url-pattern>/record/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>settings</servlet-name>
         <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.SettingsController</servlet-class>
     </servlet>
@@ -224,6 +233,7 @@
     <filter-mapping>
         <filter-name>authentication</filter-name>
         <url-pattern>/home</url-pattern>
+        <url-pattern>/record/delete</url-pattern>
         <url-pattern>/settings</url-pattern>
         <url-pattern>/password</url-pattern>
         <url-pattern>/income</url-pattern>

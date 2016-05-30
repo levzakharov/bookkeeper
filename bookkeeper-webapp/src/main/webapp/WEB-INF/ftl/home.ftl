@@ -132,6 +132,7 @@
                                 <th>Сумма</th>
                                 <th>Дата</th>
                                 <th>Тип</th>
+                                <th>Действие</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -141,11 +142,19 @@
                                     <td>${record.amount}</td>
                                     <td>${record.creationDate}</td>
                                     <td>
-                                    <#if record.type = 'INCOME'>
-                                        <span class="label label-success">Доход</span>
-                                    <#else>
-                                        <span class="label label-danger">Расход</span>
-                                    </#if>
+                                        <#if record.type = 'INCOME'>
+                                            <span class="label label-success">Доход</span>
+                                        <#else>
+                                            <span class="label label-danger">Расход</span>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <form action="/record/delete" method="post">
+                                            <input hidden="hidden" name="id" value="${record.id}">
+                                            <button type="submit" class="btn btn-xs btn-danger"><i
+                                                    class="fa fa-trash-o"></i>Удалить
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 </#list>
@@ -173,14 +182,13 @@
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json"
         },
-        "order": [[ 2, 'desc' ]]
+        "order": [[2, 'desc']]
     });
 
     $(function () {
         var incomeChartCtx = $("#incomeChart").get(0).getContext("2d");
 
-        var data = [
-        ];
+        var data = [];
 
         var options = {
             segmentShowStroke: true,
