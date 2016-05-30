@@ -1,6 +1,8 @@
 <#include "template.ftl" />
 
 <#macro styles>
+<!-- DataTables -->
+<link rel="stylesheet" href="/static/plugins/datatables/dataTables.bootstrap.css">
 </#macro>
 
 <#macro content>
@@ -115,6 +117,45 @@
             <!-- /.col (RIGHT) -->
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Записи</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="records" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Сумма</th>
+                                <th>Дата</th>
+                                <th>Тип</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <#list records as record>
+                                <tr>
+                                    <td>${record.category.name}</td>
+                                    <td>${record.amount}</td>
+                                    <td>${record.creationDate}</td>
+                                    <td>
+                                    <#if record.type = 'INCOME'>
+                                        <span class="label label-success">Доход</span>
+                                    <#else>
+                                        <span class="label label-danger">Расход</span>
+                                    </#if>
+                                    </td>
+                                </tr>
+                                </#list>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div
+        </div>
+
     </section>
 
 </div>
@@ -123,8 +164,17 @@
 <#macro scripts>
 <!-- ChartJS 1.0.1 -->
 <script src="/static/plugins/chartjs/Chart.min.js"></script>
+<!-- DataTables -->
+<script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
+    $("#records").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json"
+        },
+        "order": [[ 2, 'desc' ]]
+    });
 
     $(function () {
         var incomeChartCtx = $("#incomeChart").get(0).getContext("2d");

@@ -27,6 +27,7 @@ public class HomeController extends AbstractController {
         req.setAttribute("balance", recordService.getBalance(login));
         req.setAttribute("income", recordService.getMonthlyIncome(login, month));
         req.setAttribute("expenditure", recordService.getMonthlyExpenditure(login, month));
+        req.setAttribute("records", recordService.get(login));
 
         req.getRequestDispatcher("home.ftl").forward(req, resp);
     }
