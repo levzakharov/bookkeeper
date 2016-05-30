@@ -26,7 +26,7 @@ public class IncomeController extends HttpServlet {
         req.setAttribute("categories", categoryService.getAll());
 
         String login = req.getSession().getAttribute("login").toString();
-        req.setAttribute("incomes", recordService.get(login));
+        req.setAttribute("incomes", recordService.getIncomeList(login));
 
         req.getRequestDispatcher("income.ftl").forward(req, resp);
     }

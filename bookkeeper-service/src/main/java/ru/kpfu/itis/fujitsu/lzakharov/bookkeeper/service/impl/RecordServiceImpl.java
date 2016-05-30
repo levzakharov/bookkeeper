@@ -64,4 +64,9 @@ public class RecordServiceImpl implements RecordService {
     public Long getMonthlyIncome(String login, int month) {
         return recordDao.getMonthlyIncome(clientDao.get(login).getId(), month);
     }
+
+    @Override
+    public List<Record> getIncomeList(String login) {
+        return recordDao.getIncomeList(clientDao.get(login).getId());
+    }
 }

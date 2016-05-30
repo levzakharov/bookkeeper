@@ -42,4 +42,11 @@ public interface RecordService {
      */
     Long getMonthlyIncome(String login, int month);
 
+    /**
+     * Returns all income records of specified by login client.
+     *
+     * @param login the client's login
+     * @return list of all income records of specified by login client
+     */
+    List<Record> getIncomeList(String login);
 }
