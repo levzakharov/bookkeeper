@@ -49,18 +49,9 @@
                 <input name="password" type="password" class="form-control" placeholder="Password">
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input id="remember" name="remember" type="checkbox"> Запомнить меня
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
+                <div class="col-xs-12">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
                 </div>
-                <!-- /.col -->
             </div>
         </form>
 

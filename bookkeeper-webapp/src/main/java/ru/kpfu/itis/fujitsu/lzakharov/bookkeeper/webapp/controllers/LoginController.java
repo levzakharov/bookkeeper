@@ -23,14 +23,9 @@ public class LoginController extends AbstractController {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        String remember = req.getParameter("remember");
 
         Client client = clientService.find(login, password);
         if (client != null) {
-            if (remember != null) {
-                // TODO: add cookies
-            }
-
             req.getSession().setAttribute("login", login);
 
             resp.sendRedirect("/home");
