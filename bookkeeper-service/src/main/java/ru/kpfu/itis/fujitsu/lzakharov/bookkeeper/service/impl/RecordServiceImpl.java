@@ -119,4 +119,19 @@ public class RecordServiceImpl implements RecordService {
 
         return data;
     }
+
+    @Override
+    public Map<String, Long> getMonthlyExpenditureData(String login, int month) {
+        Client client = clientDao.get(login);
+        HashMap<String, Long> data = new HashMap<>();
+
+        CategoryDao categoryDao = new CategoryDaoHsqldb();
+        List<Category> categories = categoryDao.getAll();
+
+        for (Category category : categories) {
+            data.put(category.getName(), recordDao.getMonthlyExpenditureForCategory(client.getId(), category.getId(), month));
+        }
+
+        return data;
+    }
 }

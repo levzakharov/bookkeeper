@@ -117,4 +117,10 @@ public class RecordDaoHsqldbTest extends GenericDaoHsqldbTest<Record> {
         assertEquals(100L, recordDao.getMonthlyIncomeForCategory(0L, 0L, 1).longValue());
     }
 
+    @Test
+    public void testGetMonthlyExpenditureForCategory() {
+        RecordDao recordDao = (RecordDaoHsqldb) dao;
+
+        assertEquals(100L, recordDao.getMonthlyExpenditureForCategory(1L, 1L, 1).longValue());
+    }
 }

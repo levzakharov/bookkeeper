@@ -73,7 +73,7 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
-                            <canvas id="myChart" width="400" height="400"></canvas>
+                            <canvas id="incomeChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -94,6 +94,7 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
+                            <canvas id="expenditureChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -169,8 +170,8 @@
         "order": [[2, 'desc']]
     });
 
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    var ctxIncomeChart = document.getElementById("incomeChart");
+    var incomeChart = new Chart(ctxIncomeChart, {
         type: 'bar',
         data: {
             labels: [
@@ -185,22 +186,40 @@
                         ${incomeData[label]?c},
                     </#list>
                 ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctxExpenditureChart = document.getElementById("expenditureChart");
+    var expenditureChart = new Chart(ctxExpenditureChart, {
+        type: 'bar',
+        data: {
+            labels: [
+                <#list expenditureData?keys as label>
+                    "${label}",
+                </#list>
+            ],
+            datasets: [{
+                label: 'Сумма',
+                data: [
+                    <#list expenditureData?keys as label>
+                    ${expenditureData[label]?c},
+                    </#list>
                 ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             }]
         },

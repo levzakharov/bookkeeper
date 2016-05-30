@@ -97,5 +97,14 @@ public interface RecordDao extends GenericDao<Record> {
      * @return monthly income of specified by id client for specified category.
      */
     Long getMonthlyIncomeForCategory(Long clientId, Long categoryId, int month);
+
+    /*
+     * Returns monthly expenditure of specified by id client for specified category.
+     *
+     * @param clientId the client's id
+     * @param categoryId the id of category
+     * @return monthly expenditure of specified by id client for specified category.
+     */
+    Long getMonthlyExpenditureForCategory(Long clientId, Long categoryId, int month);
 }
 
