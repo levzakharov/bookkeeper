@@ -1,45 +1,36 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model;
 
 import java.sql.Date;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 
-public class Income extends AbstractModel {
+public class Record extends AbstractModel {
     private Long clientId;
     private Client client;
     private Long categoryId;
     private Category category;
-    private int price;
+    private Type type;
+    private int amount;
     private String description;
     private Date creationDate;
 
-    public Income() {
+    public Record() {
     }
 
-    public Income(Long id, Long clientId, Client client, Long categoryId, Category category, int price,
-                  String description, Date creationDate) {
-
+    public Record(Long id, Long clientId, Long categoryId, Type type, int amount, String description, Date creationDate) {
         this.id = id;
         this.clientId = clientId;
-        this.client = client;
         this.categoryId = categoryId;
-        this.category = category;
-        this.price = price;
+        this.type = type;
+        this.amount = amount;
         this.description = description;
         this.creationDate = creationDate;
     }
 
-    public Income(Long id, Long clientId, Long categoryId, int price, String description, Date creationDate) {
-        this.id = id;
+    public Record(Long clientId, Long categoryId, Type type, int amount, String description, Date creationDate) {
         this.clientId = clientId;
         this.categoryId = categoryId;
-        this.price = price;
-        this.description = description;
-        this.creationDate = creationDate;
-    }
-
-    public Income(Long clientId, Long categoryId, int price, String description, Date creationDate) {
-        this.clientId = clientId;
-        this.categoryId = categoryId;
-        this.price = price;
+        this.type = type;
+        this.amount = amount;
         this.description = description;
         this.creationDate = creationDate;
     }
@@ -76,12 +67,20 @@ public class Income extends AbstractModel {
         this.category = category;
     }
 
-    public int getPrice() {
-        return price;
+    public Type getType() {
+        return type;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getDescription() {
@@ -105,26 +104,23 @@ public class Income extends AbstractModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Income income = (Income) o;
+        Record record = (Record) o;
 
-        if (price != income.price) return false;
-        if (!clientId.equals(income.clientId)) return false;
-        if (client != null ? !client.equals(income.client) : income.client != null) return false;
-        if (!categoryId.equals(income.categoryId)) return false;
-        if (category != null ? !category.equals(income.category) : income.category != null) return false;
-        if (!description.equals(income.description)) return false;
-        return creationDate.equals(income.creationDate);
+        if (amount != record.amount) return false;
+        if (!clientId.equals(record.clientId)) return false;
+        if (!categoryId.equals(record.categoryId)) return false;
+        if (type != record.type) return false;
+        if (!description.equals(record.description)) return false;
+        return creationDate.equals(record.creationDate);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + clientId.hashCode();
-        result = 31 * result + client.hashCode();
+        int result = clientId.hashCode();
         result = 31 * result + categoryId.hashCode();
-        result = 31 * result + category.hashCode();
-        result = 31 * result + price;
+        result = 31 * result + type.hashCode();
+        result = 31 * result + amount;
         result = 31 * result + description.hashCode();
         result = 31 * result + creationDate.hashCode();
         return result;
@@ -132,13 +128,13 @@ public class Income extends AbstractModel {
 
     @Override
     public String toString() {
-        return "Income{" +
-                "id=" + id +
-                ", clientId=" + clientId +
+        return "Record{" +
+                "clientId=" + clientId +
                 ", client=" + client +
                 ", categoryId=" + categoryId +
                 ", category=" + category +
-                ", price=" + price +
+                ", type=" + type +
+                ", amount=" + amount +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
                 '}';

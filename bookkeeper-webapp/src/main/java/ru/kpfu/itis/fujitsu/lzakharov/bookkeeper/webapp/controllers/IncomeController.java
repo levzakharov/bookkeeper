@@ -1,12 +1,13 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers;
 
-import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Income;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.CategoryService;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.ClientService;
-import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.IncomeService;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.RecordService;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.CategoryServiceImpl;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.ClientServiceImpl;
-import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.IncomeServiceImpl;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.RecordServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +21,12 @@ public class IncomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CategoryService categoryService = new CategoryServiceImpl();
-        IncomeService incomeService = new IncomeServiceImpl();
+        RecordService recordService = new RecordServiceImpl();
 
         req.setAttribute("categories", categoryService.getAll());
 
         String login = req.getSession().getAttribute("login").toString();
-        req.setAttribute("incomes", incomeService.find(login));
+        req.setAttribute("incomes", recordService.get(login));
 
         req.getRequestDispatcher("income.ftl").forward(req, resp);
     }
@@ -33,25 +34,26 @@ public class IncomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ClientService clientService = new ClientServiceImpl();
-        IncomeService incomeService = new IncomeServiceImpl();
+        RecordService recordService = new RecordServiceImpl();
 
         String login = req.getSession().getAttribute("login").toString();
 
-        Income income = parseParameters(req);
-        income.setClientId(clientService.find(login).getId());
-        incomeService.create(income);
+        Record record = create(req, clientService.find(login).getId());
+        recordService.create(record);
 
         resp.sendRedirect("/income");
     }
 
-    private Income parseParameters(HttpServletRequest req) {
-        Income income = new Income();
+    private Record create(HttpServletRequest req, Long clientId) {
+        Record record = new Record();
 
-        income.setCategoryId(Long.valueOf(req.getParameter("category")));
-        income.setPrice(Integer.parseInt(req.getParameter("price")));
-        income.setDescription(req.getParameter("description"));
-        income.setCreationDate(Date.valueOf(req.getParameter("date")));
+        record.setClientId(clientId);
+        record.setCategoryId(Long.valueOf(req.getParameter("category")));
+        record.setType(Type.INCOME);
+        record.setAmount(Integer.parseInt(req.getParameter("amount")));
+        record.setDescription(req.getParameter("description"));
+        record.setCreationDate(Date.valueOf(req.getParameter("date")));
 
-        return income;
+        return record;
     }
 }

@@ -6,6 +6,9 @@ INSERT INTO CATEGORY (NAME)
 VALUES ('category0'),
   ('category1');
 
-INSERT INTO INCOME (CLIENT_ID, CATEGORY_ID, PRICE, DESCRIPTION, CREATION_DATE)
-VALUES (0, 0, 100, 'description0', '1999-12-31'),
-  (1, 1, 100, 'description1', '2000-01-01');
+INSERT INTO RECORD (CLIENT_ID, CATEGORY_ID, TYPE, AMOUNT, DESCRIPTION, CREATION_DATE)
+VALUES (0, 0, 'INCOME', 100, 'description0', '2016-01-01'),
+  (0, 1, 'INCOME', 200, 'description1', '2016-01-02'),
+  (1, 1, 'EXPENDITURE', 100, 'description2', '2016-01-01'),
+  (1, 0, 'EXPENDITURE', 200, 'description3', '2016-01-02');
+

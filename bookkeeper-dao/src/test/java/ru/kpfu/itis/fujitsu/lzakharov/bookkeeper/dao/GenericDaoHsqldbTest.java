@@ -2,6 +2,7 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
 import org.apache.commons.io.FileUtils;
 import org.hsqldb.cmdline.SqlFile;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -125,14 +126,14 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
     public void testAdd() throws Exception {
         T object = newObject();
 
-        assertEquals(dao.add(object), 2);
+        assertEquals(dao.add(object), table.size());
     }
 
     @Test(expected = DataAccessException.class)
     public void testAddWithDataAccessException() throws Exception {
         T object = newObject();
 
-        assertEquals(daoWithSQLException.add(object), 2);
+        assertEquals(daoWithSQLException.add(object), table.size());
     }
 
     @Test
@@ -153,7 +154,7 @@ public abstract class GenericDaoHsqldbTest<T extends AbstractModel> {
 
     @Test
     public void testGetCount() {
-        assertEquals(2, dao.getCount());
+        assertEquals(table.size(), dao.getCount());
     }
 
     @Test(expected = DataAccessException.class)

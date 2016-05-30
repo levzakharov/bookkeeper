@@ -19,7 +19,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Текущий баланс</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-number">${balance} ₽</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -33,8 +33,8 @@
                     </a>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Доход за месяц</span>
-                        <span class="info-box-number">${amount}</span>
+                        <span class="info-box-text">Доход <br>за месяц</span>
+                        <span class="info-box-number">${income} ₽</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -47,8 +47,8 @@
                     </a>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Расход за месяц</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-text">Расход <br>за месяц</span>
+                        <span class="info-box-number">760 ₽</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -130,13 +130,6 @@
         var incomeChartCtx = $("#incomeChart").get(0).getContext("2d");
 
         var data = [
-            <#list data?keys as key>
-                {
-                    label: '${key}',
-                    value: ${data[key]?c},
-                    color: 'green'
-                },
-            </#list>
         ];
 
         var options = {

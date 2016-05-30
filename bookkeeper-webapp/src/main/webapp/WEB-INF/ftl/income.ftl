@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Сумма</span>
-                                    <input name="price" type="text" class="form-control" id="price"
+                                    <input name="amount" type="text" class="form-control" id="amount"
                                            placeholder="0 RUB">
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="box">
+                <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">Список доходов</h3>
                     </div>
@@ -89,7 +89,7 @@
                             <#list incomes as income>
                                 <tr>
                                     <td>${income.category.name}</td>
-                                    <td>${income.price}</td>
+                                    <td>${income.amount}</td>
                                     <td>${income.creationDate}</td>
                                 </tr>
                             </#list>
@@ -123,7 +123,7 @@
 
     $('#income').validate({
         rules: {
-            price: {
+            amount: {
                 required: true,
                 min: 1,
                 digit: true
@@ -133,7 +133,7 @@
             }
         },
         messages: {
-            price: {
+            amount: {
                 required: 'Поле не должно быть пустым',
                 min: 'Сумма должна быть не менее 1 рубля'
             },
