@@ -27,7 +27,7 @@ public class AnonymousFilter implements Filter {
             String login = request.getSession().getAttribute("login").toString();
             request.setAttribute("login", login);
 
-            request.getRequestDispatcher("home.ftl").forward(request, response);
+            response.sendRedirect("/home");
         }
     }
 

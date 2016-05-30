@@ -29,7 +29,7 @@ public class AuthenticationFilter implements Filter {
 
             filterChain.doFilter(request, response);
         } else {
-            request.getRequestDispatcher("login.ftl").forward(request, response);
+            response.sendRedirect("/login");
         }
     }
 
