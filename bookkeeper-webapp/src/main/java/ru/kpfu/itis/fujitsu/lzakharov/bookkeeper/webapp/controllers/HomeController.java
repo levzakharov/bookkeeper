@@ -25,6 +25,7 @@ public class HomeController extends HttpServlet {
 
         req.setAttribute("balance", recordService.getBalance(login));
         req.setAttribute("income", recordService.getMonthlyIncome(login, month));
+        req.setAttribute("expenditure", recordService.getMonthlyExpenditure(login, month));
 
         req.getRequestDispatcher("home.ftl").forward(req, resp);
     }

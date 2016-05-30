@@ -12,7 +12,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Доходы
+            Расходы
         </h1>
     </section>
 
@@ -21,13 +21,13 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- general form elements -->
-                <div class="box box-success">
+                <div class="box box-danger">
                     <div class="box-header with-border">
                         <h3 class="box-title">Добавить</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form id="income" action="/income" method="post">
+                    <form id="expenditure" action="/expenditure" method="post">
                         <div class="box-body">
                             <div class="form-group">
                                 <div class="input-group">
@@ -71,13 +71,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-success">
+                <div class="box box-danger">
                     <div class="box-header">
-                        <h3 class="box-title">Список доходов</h3>
+                        <h3 class="box-title">Список расходов</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="incomes" class="table table-bordered table-hover">
+                        <table id="expenditures" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>Категория</th>
@@ -86,13 +86,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <#list incomes as income>
+                                <#list expenditures as expenditure>
                                 <tr>
-                                    <td>${income.category.name}</td>
-                                    <td>${income.amount}</td>
-                                    <td>${income.creationDate}</td>
+                                    <td>${expenditure.category.name}</td>
+                                    <td>${expenditure.amount}</td>
+                                    <td>${expenditure.creationDate}</td>
                                 </tr>
-                            </#list>
+                                </#list>
                             </tbody>
                         </table>
                     </div>
@@ -121,7 +121,7 @@
         autoclose: true
     });
 
-    $('#income').validate({
+    $('#expenditure').validate({
         rules: {
             amount: {
                 required: true,
@@ -157,7 +157,7 @@
 
     });
 
-    $("#incomes").DataTable({
+    $("#expenditures").DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json"
         },

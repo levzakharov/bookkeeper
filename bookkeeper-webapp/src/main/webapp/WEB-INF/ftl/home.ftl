@@ -33,7 +33,7 @@
                     </a>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Доход <br>за месяц</span>
+                        <span class="info-box-text">Доход в этом<br>месяце</span>
                         <span class="info-box-number">${income} ₽</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -42,13 +42,13 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <a href="minus">
+                    <a href="/expenditure">
                         <span class="info-box-icon bg-red"><i class="ion ion-ios-minus-outline"></i></span>
                     </a>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Расход <br>за месяц</span>
-                        <span class="info-box-number">760 ₽</span>
+                        <span class="info-box-text">Расход в этом<br>месяце</span>
+                        <span class="info-box-number">${expenditure} ₽</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

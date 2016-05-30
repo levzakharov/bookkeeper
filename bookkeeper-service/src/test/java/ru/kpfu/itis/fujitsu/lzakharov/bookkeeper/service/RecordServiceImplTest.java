@@ -103,4 +103,41 @@ public class RecordServiceImplTest {
 
         assertEquals(records, recordService.getIncomeList(anyString()));
     }
+
+    @Test
+    public void testGetExpenditureList() {
+        List<Record> records = new LinkedList<>();
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(1L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getIncomeList(1L)).thenReturn(records);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(records, recordService.getExpenditureList(anyString()));
+    }
+
+    @Test
+    public void testGetMonthlyExpenditure() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getMonthlyExpenditure(0L, 1)).thenReturn(0L);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(0L, recordService.getMonthlyExpenditure(anyString(), 1).longValue());
+    }
 }

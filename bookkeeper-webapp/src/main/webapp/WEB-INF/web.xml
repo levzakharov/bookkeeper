@@ -148,6 +148,15 @@
         <url-pattern>/income</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>expenditure</servlet-name>
+        <servlet-class>ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers.ExpenditureController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>expenditure</servlet-name>
+        <url-pattern>/expenditure</url-pattern>
+    </servlet-mapping>
+
     <!-- Filters -->
     <filter>
         <filter-name>log</filter-name>
@@ -198,6 +207,7 @@
         <filter-name>authentication</filter-name>
         <url-pattern>/home</url-pattern>
         <url-pattern>/income</url-pattern>
+        <url-pattern>/expenditure</url-pattern>
         <url-pattern>/logout</url-pattern>
     </filter-mapping>
 

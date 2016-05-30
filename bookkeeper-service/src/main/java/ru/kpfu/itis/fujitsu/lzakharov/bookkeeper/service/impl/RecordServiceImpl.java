@@ -67,6 +67,34 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public List<Record> getIncomeList(String login) {
-        return recordDao.getIncomeList(clientDao.get(login).getId());
+        Client client = clientDao.get(login);
+
+        List<Record> records = recordDao.getIncomeList(client.getId());
+
+        for (Record record: records) {
+            record.setClient(client);
+            record.setCategory(categoryDao.get(record.getCategoryId()));
+        }
+
+        return records;
+    }
+
+    @Override
+    public List<Record> getExpenditureList(String login) {
+        Client client = clientDao.get(login);
+
+        List<Record> records = recordDao.getExpenditureList(client.getId());
+
+        for (Record record: records) {
+            record.setClient(client);
+            record.setCategory(categoryDao.get(record.getCategoryId()));
+        }
+
+        return records;
+    }
+
+    @Override
+    public Long getMonthlyExpenditure(String login, int month) {
+        return recordDao.getMonthlyExpenditure(clientDao.get(login).getId(), month);
     }
 }

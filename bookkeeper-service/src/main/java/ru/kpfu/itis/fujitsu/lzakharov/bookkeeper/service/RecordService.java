@@ -49,4 +49,21 @@ public interface RecordService {
      * @return list of all income records of specified by login client
      */
     List<Record> getIncomeList(String login);
+
+    /**
+     * Returns all expenditures records of specified by login client.
+     *
+     * @param login the client's login
+     * @return list of all expenditures records of specified by login client
+     */
+    List<Record> getExpenditureList(String login);
+
+    /**
+     * Returns monthly expenditure for specified month of specified by login client.
+     *
+     * @param login the client's login
+     * @param month number of month
+     * @return amount of expenditure for a specified month of specified by login client
+     */
+    Long getMonthlyExpenditure(String login, int month);
 }
