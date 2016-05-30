@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
     final static Logger log = Logger.getLogger(RecordDaoHsqldb.class.getName());
 
     @Override
-    protected String getModelName() {
+    protected String getTableName() {
         return "RECORD";
     }
 
@@ -110,9 +111,10 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             List<Record> records = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get from '" + getTableName() + "' records of client with id=" + clientId + ": " + records);
             return records;
         } catch (SQLException e) {
-            String msg = "Error retrieving " + getModelName() + "s with client's id '" + clientId + "'";
+            String msg = "Error retrieving records from '" + getTableName() + "' with client's id '" + clientId + "'";
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -131,6 +133,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             List<Record> records = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get from '" + getTableName() + "' incomes of client with id=" + clientId + ": " + records);
             return records;
         } catch (SQLException e) {
             String msg = "Error retrieving income list for client with id '" + clientId + "'";
@@ -152,9 +155,10 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             List<Record> records = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get from '" + getTableName() + "' expenditures of client with id=" + clientId + ": " + records);
             return records;
         } catch (SQLException e) {
-            String msg = "Error retrieving expenditure list for client with id '" + clientId + "'";
+            String msg = "Error retrieving expenditure list for client with id=" + clientId;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -175,10 +179,11 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             Long amount = rs.getLong(1);
             rs.close();
 
+            log.trace("Monthly income of client with id=" + clientId + " in '" + month + "'s month equals " + amount);
             return amount;
         } catch (SQLException e) {
             String msg = "Error retrieving monthly income for " + month + "s month " +
-                    "of client with id '" + clientId + "'";
+                    "of client with id=" + clientId;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -198,9 +203,10 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             List<Record> records = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get monthly income list of client with id=" + clientId + " in '" + month + "'s month:" + records);
             return records;
         } catch (SQLException e) {
-            String msg = "Error retrieving monthly income list for client with id '" + clientId + "'";
+            String msg = "Error retrieving monthly income list for client with id=" + clientId;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -220,9 +226,10 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             List<Record> records = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get monthly expenditure list of client with id=" + clientId + " in '" + month + "'s month:" + records);
             return records;
         } catch (SQLException e) {
-            String msg = "Error retrieving monthly expenditure list for client with id '" + clientId + "'";
+            String msg = "Error retrieving monthly expenditure list for client with id=" + clientId;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -243,6 +250,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             Long amount = rs.getLong(1);
             rs.close();
 
+            log.trace("Monthly expenditure of client with id=" + clientId + " in '" + month + "'s month equals " + amount);
             return amount;
         } catch (SQLException e) {
             String msg = "Error retrieving monthly expenditure for " + month + "s month " +
@@ -266,6 +274,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             Long amount = rs.getLong(1);
             rs.close();
 
+            log.trace("Total income of client with id=" + clientId + " equals " + amount);
             return amount;
         } catch (SQLException e) {
             String msg = "Error retrieving total income for client with id '" + clientId + "'";
@@ -288,6 +297,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             Long amount = rs.getLong(1);
             rs.close();
 
+            log.trace("Total expenditure of client with id=" + clientId + " equals " + amount);
             return amount;
         } catch (SQLException e) {
             String msg = "Error retrieving total expenditure for client with id '" + clientId + "'";
@@ -298,7 +308,9 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
 
     @Override
     public Long getCurrentBalance(long clientId) {
-        return getTotalIncome(clientId) - getTotalExpenditure(clientId);
+        long amount = getTotalIncome(clientId) - getTotalExpenditure(clientId);
+        log.trace("Current balance of client with id=" + clientId + " equals " + amount);
+        return amount;
     }
 
 }

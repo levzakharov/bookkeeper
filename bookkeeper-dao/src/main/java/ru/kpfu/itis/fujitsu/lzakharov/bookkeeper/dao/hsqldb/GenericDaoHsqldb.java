@@ -1,6 +1,5 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.GenericDao;
@@ -17,14 +16,14 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
         return JdbcConnectionPool.getInstance().getConnection();
     }
 
-    protected abstract String getModelName();
+    protected abstract String getTableName();
     protected abstract String getSelectByIdQuery();
     protected abstract String getSelectAllQuery();
     protected String getDeleteByIdQuery() {
-        return String.format("DELETE FROM %s WHERE ID = ?", getModelName());
+        return String.format("DELETE FROM %s WHERE ID = ?", getTableName());
     }
     protected String getCountQuery() {
-        return String.format("SELECT COUNT(*) FROM %s", getModelName());
+        return String.format("SELECT COUNT(*) FROM %s", getTableName());
     }
     protected abstract String getUpdateQuery();
     protected abstract String getAddQuery();
@@ -69,6 +68,7 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 0:
                     return null;
                 case 1:
+                    log.trace("Get from '" + getTableName() + "': " + list.get(0));
                     return list.get(0);
                 default:
                     String msg = "Expected only 1 client, got + " + list.size();
@@ -77,7 +77,7 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
             }
 
         } catch (SQLException e) {
-            String msg = "Error retrieving " + getModelName() + " with id " + id;
+            String msg = "Error retrieving '" + getTableName() + "' with id " + id;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -93,9 +93,10 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
             List<T> list = parseResultSet(rs);
             rs.close();
 
+            log.trace("Get from '" + getTableName() + "': " + list);
             return list;
         } catch (SQLException e) {
-            String msg = "Error retrieving " + getModelName() + "s";
+            String msg = "Error retrieving from '" + getTableName() + "'";
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -114,6 +115,7 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 case 0:
                     return null;
                 case 1:
+                    log.trace("Update model: " + model);
                     return model;
                 default:
                     String msg = "Expected only 1 row updated, got " + rowsAffected;
@@ -144,7 +146,9 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                 ResultSet generatedKeys = pstmt.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
-                    return generatedKeys.getLong(1);
+                    model.setId(generatedKeys.getLong(1));
+                    log.trace("Add into '" + getTableName() + "' new model: " + model);
+                    return model.getId();
                 } else {
                     String msg = "Adding model failed, no ID obtained";
                     log.error(msg);
@@ -167,8 +171,10 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
             int rowsAffected = pstmt.executeUpdate();
             switch (rowsAffected){
                 case 0:
+                    log.trace("Model with id=" + id + " not removed from '" + getTableName() + "'");
                     return false;
                 case 1:
+                    log.trace("Remove from '" + getTableName() + "' model with id=" + id);
                     return true;
                 default:
                     String msg = "Expected only 1 row updated, got " + rowsAffected;
@@ -176,7 +182,7 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
                     throw new DataAccessException(msg);
             }
         } catch (SQLException e) {
-            String msg = "Error removing " + getModelName() + " with id " + id;
+            String msg = "Error removing '" + getTableName() + "' with id=" + id;
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
@@ -189,15 +195,19 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
         try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getLong(1);
+                Long count = rs.getLong(1);
+                log.trace("Get count=" + count + " of '" + getTableName() + "'");
+                return count;
             }
 
             rs.close();
         } catch (SQLException e) {
-            String msg = "Error getting number of " + getModelName() + "s";
+            String msg = "Error getting count of '" + getTableName() + "'";
             log.error(msg);
             throw new DataAccessException(msg);
         }
+
+        log.trace("Get count=" + 0 + " of '" + getTableName() + "'");
         return 0;
     }
 }

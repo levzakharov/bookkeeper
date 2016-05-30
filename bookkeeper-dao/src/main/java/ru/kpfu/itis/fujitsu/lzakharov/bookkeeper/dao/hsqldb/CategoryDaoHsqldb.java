@@ -15,7 +15,7 @@ public class CategoryDaoHsqldb extends GenericDaoHsqldb<Category> implements Cat
     final static Logger log = Logger.getLogger(CategoryDaoHsqldb.class.getName());
 
     @Override
-    protected String getModelName() {
+    protected String getTableName() {
         return "CATEGORY";
     }
 

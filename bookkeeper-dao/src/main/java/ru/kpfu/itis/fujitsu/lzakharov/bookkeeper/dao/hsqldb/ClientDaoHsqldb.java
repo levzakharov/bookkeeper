@@ -17,7 +17,7 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
     final static Logger log = Logger.getLogger(ClientDaoHsqldb.class.getName());
 
     @Override
-    protected String getModelName() {
+    protected String getTableName() {
         return "CLIENT";
     }
 
@@ -104,8 +104,10 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
 
             switch (list.size()) {
                 case 0:
+                    log.trace("Client with login=" + login + " not found");
                     return null;
                 case 1:
+                    log.trace("Get from '" + getTableName() + "' user with login='" + login + "': " + list.get(0));
                     return list.get(0);
                 default:
                     String msg = "Expected only 1 model, got + " + list.size();
@@ -114,7 +116,7 @@ public class ClientDaoHsqldb extends GenericDaoHsqldb<Client> implements ClientD
             }
 
         } catch (SQLException e) {
-            String msg = "Error retrieving " + getModelName() + " with login '" + login + "'";
+            String msg = "Error retrieving " + getTableName() + " with login '" + login + "'";
             log.error(msg);
             throw new DataAccessException(msg, e);
         }
