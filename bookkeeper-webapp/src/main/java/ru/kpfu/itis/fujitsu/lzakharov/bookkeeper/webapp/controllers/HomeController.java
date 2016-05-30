@@ -1,5 +1,6 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.webapp.controllers;
 
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.AbstractModel;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.CategoryService;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.RecordService;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-public class HomeController extends HttpServlet {
+public class HomeController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

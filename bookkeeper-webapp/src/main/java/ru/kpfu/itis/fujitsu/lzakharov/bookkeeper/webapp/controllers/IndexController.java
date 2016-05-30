@@ -9,6 +9,6 @@ import java.io.IOException;
 public class IndexController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("index.ftl").forward(req, resp);
+        resp.sendRedirect("/login");
     }
 }
