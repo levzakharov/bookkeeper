@@ -1,6 +1,7 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service;
 
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 
 import java.util.List;
@@ -127,4 +128,13 @@ public interface RecordService {
      * @return total average expenditure of specified by login client
      */
     Long getTotalAverageExpenditure(String login);
+
+    /**
+     * Returns the list of pairs contains months and balances their respective for specified by login client.
+     * @param login the client's login
+     * @return list of pairs contains months and balances their respective for specified by login client, may be empty
+     *
+     * @see Coordinate
+     */
+    List<Coordinate> getTotalMonthlyBalanceData(String login);
 }

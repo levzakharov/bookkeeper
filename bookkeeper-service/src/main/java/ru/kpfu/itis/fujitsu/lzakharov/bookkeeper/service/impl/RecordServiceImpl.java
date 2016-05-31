@@ -8,6 +8,7 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb.ClientDaoHsqldb;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb.RecordDaoHsqldb;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.RecordService;
 
@@ -151,5 +152,10 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Long getTotalAverageExpenditure(String login) {
         return recordDao.getTotalAverageExpenditure(clientDao.get(login).getId());
+    }
+
+    @Override
+    public List<Coordinate> getTotalMonthlyBalanceData(String login) {
+        return recordDao.getTotalMonthlyBalanceData(clientDao.get(login).getId());
     }
 }

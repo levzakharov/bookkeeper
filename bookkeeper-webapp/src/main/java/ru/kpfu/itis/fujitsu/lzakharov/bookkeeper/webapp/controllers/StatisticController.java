@@ -18,6 +18,7 @@ public class StatisticController extends AbstractController {
         req.setAttribute("expenditure", recordService.getTotalExpenditure(login));
         req.setAttribute("averageIncome", recordService.getTotalAverageIncome(login));
         req.setAttribute("averageExpenditure", recordService.getTotalAverageExpenditure(login));
+        req.setAttribute("data", recordService.getTotalMonthlyBalanceData(login));
 
         req.getRequestDispatcher("statistic.ftl").forward(req, resp);
     }

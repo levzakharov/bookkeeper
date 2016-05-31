@@ -3,6 +3,7 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb;
 import org.apache.log4j.Logger;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.DataAccessException;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.RecordDao;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordDao {
     final static Logger log = Logger.getLogger(RecordDaoHsqldb.class.getName());
@@ -333,7 +335,7 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             return amount;
         } catch (SQLException e) {
             String msg = String.format("Error retrieving monthly income for client with id '%d' in '%d's month " +
-                    "for category with id=%d",
+                            "for category with id=%d",
                     clientId, month, categoryId);
             log.error(msg);
             throw new DataAccessException(msg, e);
@@ -409,6 +411,41 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
             return amount;
         } catch (SQLException e) {
             String msg = "Error retrieving total average expenditure for client with id '" + clientId + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
+        }
+    }
+
+    @Override
+    public List<Coordinate> getTotalMonthlyBalanceData(Long clientId) {
+        String sql = "SELECT " +
+                "YEAR(CREATION_DATE) AS CREATION_YEAR, " +
+                "MONTH(CREATION_DATE) AS CREATION_MONTH, " +
+                "SUM(CASE WHEN TYPE = 'INCOME' " +
+                "THEN AMOUNT " +
+                "ELSE (-1) * RECORD.AMOUNT " +
+                "END) " +
+                "FROM RECORD " +
+                "WHERE CLIENT_ID = ? " +
+                "GROUP BY CREATION_YEAR, CREATION_MONTH " +
+                "ORDER BY CREATION_YEAR, CREATION_MONTH";
+
+
+        try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+
+            List<Coordinate> data = new LinkedList<>();
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                data.add(new Coordinate(String.valueOf(rs.getInt(2)) + ", " + String.valueOf(rs.getInt(1)),
+                        rs.getLong(3)));
+            }
+            rs.close();
+
+            log.trace("Total monthly balance data of client with id=" + clientId + ": " + data);
+            return data;
+        } catch (SQLException e) {
+            String msg = "Error retrieving total monthly balance data for client with id '" + clientId + "'";
             log.error(msg);
             throw new DataAccessException(msg, e);
         }

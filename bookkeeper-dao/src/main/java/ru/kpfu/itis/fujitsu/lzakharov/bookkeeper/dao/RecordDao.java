@@ -1,8 +1,10 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RecordDao extends GenericDao<Record> {
     /**
@@ -121,5 +123,14 @@ public interface RecordDao extends GenericDao<Record> {
      * @return total average expenditure of specified by id client
      */
     Long getTotalAverageExpenditure(Long clientId);
+
+    /**
+     * Returns the list of pairs contains months and balances their respective for specified by id client.
+     * @param clientId the client's id
+     * @return list of pairs contains months and balances their respective for specified by id client, may be empty
+     *
+     * @see Coordinate
+     */
+    List<Coordinate> getTotalMonthlyBalanceData(Long clientId);
 }
 
