@@ -110,7 +110,6 @@ public class RecordServiceImpl implements RecordService {
         Client client = clientDao.get(login);
         HashMap<String, Long> data = new HashMap<>();
 
-        CategoryDao categoryDao = new CategoryDaoHsqldb();
         List<Category> categories = categoryDao.getAll();
 
         for (Category category : categories) {
@@ -125,7 +124,6 @@ public class RecordServiceImpl implements RecordService {
         Client client = clientDao.get(login);
         HashMap<String, Long> data = new HashMap<>();
 
-        CategoryDao categoryDao = new CategoryDaoHsqldb();
         List<Category> categories = categoryDao.getAll();
 
         for (Category category : categories) {
