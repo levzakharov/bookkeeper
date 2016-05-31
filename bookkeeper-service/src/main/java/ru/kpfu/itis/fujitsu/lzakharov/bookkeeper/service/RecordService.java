@@ -95,4 +95,36 @@ public interface RecordService {
      * @return map, where keys - names of categories and values - monthly expenditure for appropriate category
      */
     Map<String, Long> getMonthlyExpenditureData(String login, int month);
+
+    /**
+     * Returns total income of specified by login client.
+     *
+     * @param login the client's login
+     * @return total income of specified by login client
+     */
+    Long getTotalIncome(String login);
+
+    /**
+     * Returns total expenditure of specified by login client.
+     *
+     * @param login the client's login
+     * @return total expenditure of specified by login client
+     */
+    Long getTotalExpenditure(String login);
+
+    /**
+     * Returns total average income of specified by login client.
+     *
+     * @param login the client's login
+     * @return total average income of specified by login client
+     */
+    Long getTotalAverageIncome(String login);
+
+    /**
+     * Returns total average expenditure of specified by login client.
+     *
+     * @param login the client's login
+     * @return total average expenditure of specified by login client
+     */
+    Long getTotalAverageExpenditure(String login);
 }

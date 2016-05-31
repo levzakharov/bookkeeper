@@ -1,6 +1,5 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
-import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 
 import java.util.List;
@@ -69,7 +68,7 @@ public interface RecordDao extends GenericDao<Record> {
      * Returns total income of specified by id client.
      *
      * @param clientId the client's id
-     * @return total income of specified by id client.
+     * @return total income of specified by id client
      */
     Long getTotalIncome(long clientId);
 
@@ -77,7 +76,7 @@ public interface RecordDao extends GenericDao<Record> {
      * Returns total expenditure of specified by id client.
      *
      * @param clientId the client's id
-     * @return total expenditure of specified by id client.
+     * @return total expenditure of specified by id client
      */
     Long getTotalExpenditure(long clientId);
 
@@ -90,11 +89,11 @@ public interface RecordDao extends GenericDao<Record> {
     Long getCurrentBalance(long clientId);
 
     /*
-     * Returns monthly income of specified by id client for specified category.
+     * Returns monthly income of specified by id client for specified category
      *
      * @param clientId the client's id
      * @param categoryId the id of category
-     * @return monthly income of specified by id client for specified category.
+     * @return monthly income of specified by id client for specified category
      */
     Long getMonthlyIncomeForCategory(Long clientId, Long categoryId, int month);
 
@@ -103,8 +102,24 @@ public interface RecordDao extends GenericDao<Record> {
      *
      * @param clientId the client's id
      * @param categoryId the id of category
-     * @return monthly expenditure of specified by id client for specified category.
+     * @return monthly expenditure of specified by id client for specified category
      */
     Long getMonthlyExpenditureForCategory(Long clientId, Long categoryId, int month);
+
+    /**
+     * Returns total average income of specified by id client.
+     *
+     * @param clientId the client's id
+     * @return total average income of specified by id client
+     */
+    Long getTotalAverageIncome(Long clientId);
+
+    /**
+     * Returns total average expenditure of specified by id client.
+     *
+     * @param clientId the client's id
+     * @return total average expenditure of specified by id client
+     */
+    Long getTotalAverageExpenditure(Long clientId);
 }
 

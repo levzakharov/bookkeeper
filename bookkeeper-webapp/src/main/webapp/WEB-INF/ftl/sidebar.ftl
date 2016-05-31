@@ -25,6 +25,10 @@
                     <li><a href="/expenditure"><i class="fa fa-minus-circle"></i> Расход</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a href="/statistic">Статистика</a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

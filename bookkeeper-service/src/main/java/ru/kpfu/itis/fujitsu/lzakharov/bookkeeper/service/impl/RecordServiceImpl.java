@@ -132,4 +132,24 @@ public class RecordServiceImpl implements RecordService {
 
         return data;
     }
+
+    @Override
+    public Long getTotalIncome(String login) {
+        return recordDao.getTotalIncome(clientDao.get(login).getId());
+    }
+
+    @Override
+    public Long getTotalExpenditure(String login) {
+        return recordDao.getTotalExpenditure(clientDao.get(login).getId());
+    }
+
+    @Override
+    public Long getTotalAverageIncome(String login) {
+        return recordDao.getTotalAverageIncome(clientDao.get(login).getId());
+    }
+
+    @Override
+    public Long getTotalAverageExpenditure(String login) {
+        return recordDao.getTotalAverageExpenditure(clientDao.get(login).getId());
+    }
 }

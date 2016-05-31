@@ -368,4 +368,50 @@ public class RecordDaoHsqldb extends GenericDaoHsqldb<Record> implements RecordD
         }
     }
 
+    @Override
+    public Long getTotalAverageIncome(Long clientId) {
+        String sql = "SELECT AVG(AMOUNT) FROM RECORD " +
+                "WHERE CLIENT_ID = ? AND TYPE = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+            pstmt.setString(2, Type.INCOME.toString());
+
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            Long amount = rs.getLong(1);
+            rs.close();
+
+            log.trace("Total average income of client with id=" + clientId + " equals " + amount);
+            return amount;
+        } catch (SQLException e) {
+            String msg = "Error retrieving total average income for client with id '" + clientId + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
+        }
+    }
+
+    @Override
+    public Long getTotalAverageExpenditure(Long clientId) {
+        String sql = "SELECT AVG(AMOUNT) FROM RECORD " +
+                "WHERE CLIENT_ID = ? AND TYPE = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, clientId);
+            pstmt.setString(2, Type.EXPENDITURE.toString());
+
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            Long amount = rs.getLong(1);
+            rs.close();
+
+            log.trace("Total average expenditure of client with id=" + clientId + " equals " + amount);
+            return amount;
+        } catch (SQLException e) {
+            String msg = "Error retrieving total average expenditure for client with id '" + clientId + "'";
+            log.error(msg);
+            throw new DataAccessException(msg, e);
+        }
+    }
+
 }
