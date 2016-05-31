@@ -46,11 +46,19 @@ public class RecordServiceImplTest {
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get(anyString())).thenReturn(client);
 
+        CategoryDao categoryDao = mock(CategoryDao.class);
+        List<Category> categories = new LinkedList<>();
+        categories.add(new Category(0L, "category0"));
+        categories.add(new Category(1L, "category1"));
+        when(categoryDao.get(0L)).thenReturn(categories.get(0));
+        when(categoryDao.get(1L)).thenReturn(categories.get(1));
+
         RecordDao recordDao = mock(RecordDao.class);
         when(recordDao.getAll(0L)).thenReturn(records);
 
         RecordService recordService = new RecordServiceImpl();
         ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setCategoryDao(categoryDao);
         ((RecordServiceImpl) recordService).setClientDao(clientDao);
 
         assertEquals(records, recordService.get(anyString()));
@@ -102,11 +110,19 @@ public class RecordServiceImplTest {
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get(anyString())).thenReturn(client);
 
+        CategoryDao categoryDao = mock(CategoryDao.class);
+        List<Category> categories = new LinkedList<>();
+        categories.add(new Category(0L, "category0"));
+        categories.add(new Category(1L, "category1"));
+        when(categoryDao.get(0L)).thenReturn(categories.get(0));
+        when(categoryDao.get(1L)).thenReturn(categories.get(1));
+
         RecordDao recordDao = mock(RecordDao.class);
         when(recordDao.getIncomeList(0L)).thenReturn(records);
 
         RecordService recordService = new RecordServiceImpl();
         ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setCategoryDao(categoryDao);
         ((RecordServiceImpl) recordService).setClientDao(clientDao);
 
         assertEquals(records, recordService.getIncomeList(anyString()));
@@ -122,11 +138,19 @@ public class RecordServiceImplTest {
         ClientDao clientDao = mock(ClientDao.class);
         when(clientDao.get(anyString())).thenReturn(client);
 
+        CategoryDao categoryDao = mock(CategoryDao.class);
+        List<Category> categories = new LinkedList<>();
+        categories.add(new Category(0L, "category0"));
+        categories.add(new Category(1L, "category1"));
+        when(categoryDao.get(0L)).thenReturn(categories.get(0));
+        when(categoryDao.get(1L)).thenReturn(categories.get(1));
+
         RecordDao recordDao = mock(RecordDao.class);
         when(recordDao.getExpenditureList(1L)).thenReturn(records);
 
         RecordService recordService = new RecordServiceImpl();
         ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setCategoryDao(categoryDao);
         ((RecordServiceImpl) recordService).setClientDao(clientDao);
 
         assertEquals(records, recordService.getExpenditureList(anyString()));
