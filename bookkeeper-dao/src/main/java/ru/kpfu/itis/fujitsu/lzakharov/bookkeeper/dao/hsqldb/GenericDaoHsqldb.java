@@ -194,20 +194,19 @@ public abstract class GenericDaoHsqldb<T extends AbstractModel> implements Gener
 
         try (Connection connection = getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
+            Long count = 0L;
+
             if (rs.next()) {
-                Long count = rs.getLong(1);
-                log.trace("Get count=" + count + " of '" + getTableName() + "'");
-                return count;
+                count = rs.getLong(1);
             }
 
             rs.close();
+            log.trace("Get count=" + count + " of '" + getTableName() + "'");
+            return count;
         } catch (SQLException e) {
             String msg = "Error getting count of '" + getTableName() + "'";
             log.error(msg);
             throw new DataAccessException(msg);
         }
-
-        log.trace("Get count=" + 0 + " of '" + getTableName() + "'");
-        return 0;
     }
 }
