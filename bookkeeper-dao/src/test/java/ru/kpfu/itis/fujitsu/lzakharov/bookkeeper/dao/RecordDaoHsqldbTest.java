@@ -2,11 +2,13 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao;
 
 import org.junit.Test;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.hsqldb.RecordDaoHsqldb;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 
 import java.sql.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -122,5 +124,28 @@ public class RecordDaoHsqldbTest extends GenericDaoHsqldbTest<Record> {
         RecordDao recordDao = (RecordDaoHsqldb) dao;
 
         assertEquals(100L, recordDao.getMonthlyExpenditureForCategory(1L, 1L, 1).longValue());
+    }
+
+    @Test
+    public void testGetTotalAverageIncome() {
+        RecordDao recordDao = (RecordDaoHsqldb) dao;
+
+        assertEquals(150L, recordDao.getTotalAverageIncome(0L).longValue());
+    }
+
+    @Test
+    public void testGetTotalAverageExpenditure() {
+        RecordDao recordDao = (RecordDaoHsqldb) dao;
+
+        assertEquals(150L, recordDao.getTotalAverageExpenditure(1L).longValue());
+    }
+
+    @Test
+    public void testTotalMonthlyBalanceData() {
+        RecordDao recordDao = (RecordDaoHsqldb) dao;
+        List<Coordinate> data = recordDao.getTotalMonthlyBalanceData(0L);
+
+        assertEquals("1, 2016", data.get(0).getX());
+        assertEquals(300L, data.get(0).getY().longValue());
     }
 }

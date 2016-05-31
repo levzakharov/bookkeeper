@@ -6,6 +6,7 @@ import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.ClientDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.dao.RecordDao;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Category;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Client;
+import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Coordinate;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.Record;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.service.impl.RecordServiceImpl;
@@ -254,5 +255,98 @@ public class RecordServiceImplTest {
         data.put("category1", 200L);
 
         assertEquals(data,recordService.getMonthlyExpenditureData(anyString(), 1));
+    }
+
+    @Test
+    public void testGetTotalIncome() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getTotalIncome(0L)).thenReturn(200L);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(200L,recordService.getTotalIncome(anyString()).longValue());
+    }
+
+    @Test
+    public void testGetTotalExpenditure() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getTotalExpenditure(0L)).thenReturn(200L);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(200L,recordService.getTotalExpenditure(anyString()).longValue());
+    }
+
+    @Test
+    public void testGetTotalAverageIncome() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getTotalAverageIncome(0L)).thenReturn(200L);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(200L,recordService.getTotalAverageIncome(anyString()).longValue());
+    }
+
+    @Test
+    public void testGetTotalAverageExpenditure() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getTotalAverageExpenditure(0L)).thenReturn(200L);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(200L,recordService.getTotalAverageExpenditure(anyString()).longValue());
+    }
+
+    @Test
+    public void testGetTotalMonthlyBalanceData() {
+        Client client = mock(Client.class);
+        when(client.getId()).thenReturn(0L);
+
+        ClientDao clientDao = mock(ClientDao.class);
+        when(clientDao.get(anyString())).thenReturn(client);
+
+        List<Coordinate> data = new LinkedList<>();
+        data.add(new Coordinate("", 0L));
+
+        RecordDao recordDao = mock(RecordDao.class);
+        when(recordDao.getTotalMonthlyBalanceData(0L)).thenReturn(data);
+
+        RecordService recordService = new RecordServiceImpl();
+        ((RecordServiceImpl) recordService).setRecordDao(recordDao);
+        ((RecordServiceImpl) recordService).setClientDao(clientDao);
+
+        assertEquals(data,recordService.getTotalMonthlyBalanceData(anyString()));
     }
 }
