@@ -59,7 +59,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- INCOME CHART -->
                 <div class="box box-success">
                     <div class="box-header with-border">
@@ -73,18 +73,18 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
-                            <canvas id="incomeChart" width="400" height="400"></canvas>
+                            <canvas id="incomeChart" width="400" height="150"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.col (LEFT) -->
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- SPENDING CHART -->
                 <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Расходы</h3>
+                        <h3 class="box-title">Расходы за текущий месяц</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -94,7 +94,7 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
-                            <canvas id="expenditureChart" width="400" height="400"></canvas>
+                            <canvas id="expenditureChart" width="400" height="150"></canvas>
                         </div>
                     </div>
                 </div>
