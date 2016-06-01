@@ -1,5 +1,8 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model;
 
+/**
+ * Represents the Category.
+ */
 public class Category extends AbstractModel {
     private String name;
 

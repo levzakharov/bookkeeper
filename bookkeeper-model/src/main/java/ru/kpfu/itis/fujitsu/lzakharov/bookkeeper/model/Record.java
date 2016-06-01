@@ -3,6 +3,9 @@ package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model;
 import java.sql.Date;
 import ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model.enums.Type;
 
+/**
+ * Represents the Record.
+ */
 public class Record extends AbstractModel {
     private Long clientId;
     private Client client;

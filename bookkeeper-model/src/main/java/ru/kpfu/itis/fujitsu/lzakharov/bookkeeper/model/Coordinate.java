@@ -1,5 +1,8 @@
 package ru.kpfu.itis.fujitsu.lzakharov.bookkeeper.model;
 
+/**
+ * Represents the Coordinate.
+ */
 public class Coordinate {
     private String x;
     private Long y;
