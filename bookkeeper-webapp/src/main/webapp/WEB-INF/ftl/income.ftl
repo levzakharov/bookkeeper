@@ -82,6 +82,7 @@
                             <tr>
                                 <th>Категория</th>
                                 <th>Сумма</th>
+                                <th>Описание</th>
                                 <th>Дата</th>
                             </tr>
                             </thead>
@@ -90,6 +91,7 @@
                                 <tr>
                                     <td>${income.category.name}</td>
                                     <td>${income.amount}</td>
+                                    <td>${income.description}</td>
                                     <td>${income.creationDate}</td>
                                 </tr>
                             </#list>

@@ -82,6 +82,7 @@
                             <tr>
                                 <th>Категория</th>
                                 <th>Сумма</th>
+                                <th>Описание</th>
                                 <th>Дата</th>
                             </tr>
                             </thead>
@@ -90,6 +91,7 @@
                                 <tr>
                                     <td>${expenditure.category.name}</td>
                                     <td>${expenditure.amount}</td>
+                                    <td>${expenditure.description}</td>
                                     <td>${expenditure.creationDate}</td>
                                 </tr>
                                 </#list>

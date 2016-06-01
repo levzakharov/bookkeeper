@@ -117,6 +117,7 @@
                                 <th>Сумма</th>
                                 <th>Дата</th>
                                 <th>Тип</th>
+                                <th>Описание</th>
                                 <th>Действие</th>
                             </tr>
                             </thead>
@@ -133,6 +134,7 @@
                                             <span class="label label-danger">Расход</span>
                                         </#if>
                                     </td>
+                                    <td>${record.description}</td>
                                     <td>
                                         <form action="/record/delete" method="post">
                                             <input hidden="hidden" name="id" value="${record.id}">
