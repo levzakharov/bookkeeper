@@ -13,7 +13,7 @@
 
         <ul class="sidebar-menu">
             <li class="header">Меню</li>
-            <li><a href="/home"><span> Главная</span></a></li>
+            <li><a href="/home"><i class="fa fa-home"></i><span> Главная</span></a></li>
 
             <li class="treeview">
                 <a href="#">
@@ -27,7 +27,7 @@
             </li>
 
             <li>
-                <a href="/statistic">Статистика</a>
+                <a href="/statistic"><i class="fa fa-line-chart"></i><span>Статистика</span></a>
             </li>
         </ul>
     </section>
