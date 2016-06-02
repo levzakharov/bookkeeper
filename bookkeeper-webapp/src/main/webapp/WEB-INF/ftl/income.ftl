@@ -163,7 +163,7 @@
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Russian.json"
         },
-        "order": [[ 2, 'desc' ]]
+        "order": [[ 3, 'desc' ]]
     });
 </script>
 
